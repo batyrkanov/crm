@@ -195,7 +195,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Entities\ApplicationRole.cs" />
+    <Compile Include="Models\Entities\ApplicationUserClaim.cs" />
+    <Compile Include="Models\Entities\ApplicationUserLogin.cs" />
+    <Compile Include="Models\Entities\ApplicationUserRole.cs" />
+    <Compile Include="Models\Entities\ApplicationUserStore.cs" />
+    <Compile Include="Models\Entities\Category.cs" />
+    <Compile Include="Models\Entities\Company.cs" />
+    <Compile Include="Models\Entities\Tasks.cs" />
+    <Compile Include="Models\Entities\TaskStatus.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -261,7 +271,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
