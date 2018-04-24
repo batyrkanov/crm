@@ -1,0 +1,69 @@
+﻿@model IEnumerable<CRM.Models.Taska>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ManagerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ManagerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TaskId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TaskId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TaskId })
+        </td>
+    </tr>
+}
+
+</table>
