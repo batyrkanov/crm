@@ -219,6 +219,20 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\assets\css\font-awesome.min.css" />
+    <Content Include="Content\assets\css\ie8.css" />
+    <Content Include="Content\assets\css\ie9.css" />
+    <Content Include="Content\assets\css\images\intro.svg" />
+    <Content Include="Content\assets\css\main.css" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\assets\js\ie\html5shiv.js" />
+    <Content Include="Content\assets\js\ie\respond.min.js" />
+    <Content Include="Content\assets\js\jquery.min.js" />
+    <Content Include="Content\assets\js\jquery.scrollex.min.js" />
+    <Content Include="Content\assets\js\jquery.scrolly.min.js" />
+    <Content Include="Content\assets\js\main.js" />
+    <Content Include="Content\assets\js\skel.min.js" />
+    <Content Include="Content\assets\js\util.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -230,6 +244,37 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\assets\fonts\FontAwesome.otf" />
+    <Content Include="Content\assets\sass\base\_page.scss" />
+    <Content Include="Content\assets\sass\base\_typography.scss" />
+    <Content Include="Content\assets\sass\components\_box.scss" />
+    <Content Include="Content\assets\sass\components\_button.scss" />
+    <Content Include="Content\assets\sass\components\_features.scss" />
+    <Content Include="Content\assets\sass\components\_form.scss" />
+    <Content Include="Content\assets\sass\components\_icon.scss" />
+    <Content Include="Content\assets\sass\components\_image.scss" />
+    <Content Include="Content\assets\sass\components\_list.scss" />
+    <Content Include="Content\assets\sass\components\_section.scss" />
+    <Content Include="Content\assets\sass\components\_split.scss" />
+    <Content Include="Content\assets\sass\components\_spotlights.scss" />
+    <Content Include="Content\assets\sass\components\_table.scss" />
+    <Content Include="Content\assets\sass\components\_wrapper.scss" />
+    <Content Include="Content\assets\sass\ie8.scss" />
+    <Content Include="Content\assets\sass\ie9.scss" />
+    <Content Include="Content\assets\sass\layout\_footer.scss" />
+    <Content Include="Content\assets\sass\layout\_header.scss" />
+    <Content Include="Content\assets\sass\layout\_intro.scss" />
+    <Content Include="Content\assets\sass\layout\_sidebar.scss" />
+    <Content Include="Content\assets\sass\layout\_wrapper.scss" />
+    <Content Include="Content\assets\sass\libs\_functions.scss" />
+    <Content Include="Content\assets\sass\libs\_mixins.scss" />
+    <Content Include="Content\assets\sass\libs\_skel.scss" />
+    <Content Include="Content\assets\sass\libs\_vars.scss" />
+    <Content Include="Content\assets\sass\main.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
