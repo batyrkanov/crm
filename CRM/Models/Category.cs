@@ -20,5 +20,7 @@ namespace CRM.Models
         public string CategoryName { get; set; }
 
         public virtual ICollection<Taska> Tasks { get; set; }
+        
+
     }
 }

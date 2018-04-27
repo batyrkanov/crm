@@ -1,13 +1,14 @@
-﻿@model CRM.Models.Companies
+﻿@model CRM.Models.Company
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>Companies</h4>
+    <h4>Company</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -16,6 +17,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
         </dd>
 
     </dl>

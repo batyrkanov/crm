@@ -21,6 +21,11 @@ namespace CRM.Controllers
             return View(await db.Tasks.ToListAsync());
         }
 
+        public async Task<ActionResult> OwnIndex()
+        {
+            return View(await db.Tasks.Where(x=>x.ManagerName == User.Identity.Name).ToListAsync());
+        }
+
         // GET: Taskas/Details/5
         public async Task<ActionResult> Details(Guid? id)
         {
@@ -39,6 +44,12 @@ namespace CRM.Controllers
         // GET: Taskas/Create
         public ActionResult Create()
         {
+            SelectList categoriesList = new SelectList(db.Categories, "CategoryId", "CategoryName");
+            ViewBag.CategoriesList = categoriesList;
+            SelectList companiesList = new SelectList(db.Companies, "CompanyId", "CompanyName");
+            ViewBag.CompaniesList = companiesList;
+            SelectList statusesList = new SelectList(db.TaskStatuses, "StatusId", "StatusName");
+            ViewBag.StatusesList = statusesList;
             return View();
         }
 
@@ -51,7 +62,19 @@ namespace CRM.Controllers
         {
             if (ModelState.IsValid)
             {
+                SelectList companiesList = new SelectList(db.Companies, "CompanyId", "CompanyName");
+               
+                Company company = new Company();
                 taska.TaskId = Guid.NewGuid();
+                taska.ManagerName = User.Identity.Name;
+                company.CompanyId = Guid.NewGuid();
+                company.CompanyName = taska.CompanyId;
+                if (taska.CompanyId == "" || taska.CompanyId == null)
+                {
+                    taska.CompanyId = companiesList.SelectedValue.ToString();
+
+                }
+                db.Companies.Add(company);
                 db.Tasks.Add(taska);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

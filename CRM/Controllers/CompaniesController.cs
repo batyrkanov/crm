@@ -22,18 +22,18 @@ namespace CRM.Controllers
         }
 
         // GET: Companies/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Company companies = await db.Companies.FindAsync(id);
-            if (companies == null)
+            Company company = await db.Companies.FindAsync(id);
+            if (company == null)
             {
                 return HttpNotFound();
             }
-            return View(companies);
+            return View(company);
         }
 
         // GET: Companies/Create
@@ -47,31 +47,32 @@ namespace CRM.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "CompanyId,CompanyName")] Company companies)
+        public async Task<ActionResult> Create([Bind(Include = "CompanyId,CompanyName,CategoryName")] Company company)
         {
             if (ModelState.IsValid)
             {
-                db.Companies.Add(companies);
+                company.CompanyId = Guid.NewGuid();
+                db.Companies.Add(company);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(companies);
+            return View(company);
         }
 
         // GET: Companies/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Company companies = await db.Companies.FindAsync(id);
-            if (companies == null)
+            Company company = await db.Companies.FindAsync(id);
+            if (company == null)
             {
                 return HttpNotFound();
             }
-            return View(companies);
+            return View(company);
         }
 
         // POST: Companies/Edit/5
@@ -79,39 +80,39 @@ namespace CRM.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "CompanyId,CompanyName")] Company companies)
+        public async Task<ActionResult> Edit([Bind(Include = "CompanyId,CompanyName,CategoryName")] Company company)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(companies).State = EntityState.Modified;
+                db.Entry(company).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(companies);
+            return View(company);
         }
 
         // GET: Companies/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Company companies = await db.Companies.FindAsync(id);
-            if (companies == null)
+            Company company = await db.Companies.FindAsync(id);
+            if (company == null)
             {
                 return HttpNotFound();
             }
-            return View(companies);
+            return View(company);
         }
 
         // POST: Companies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
-            Company companies = await db.Companies.FindAsync(id);
-            db.Companies.Remove(companies);
+            Company company = await db.Companies.FindAsync(id);
+            db.Companies.Remove(company);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

@@ -18,7 +18,7 @@ namespace CRM.Models
 
         [StringLength(250)]
         public string CompanyName { get; set; }
-
+        
         public virtual ICollection<Taska> Tasks { get; set; }
     }
 }

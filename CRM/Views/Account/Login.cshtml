@@ -66,7 +66,7 @@
         <!--   You can change the black color for the filter with those colors: blue, green, red, orange       -->
         <div class="container">
             <h1 class="logo cursive">
-                Вход в систему
+                Login
             </h1>
             <!--  H1 can have 2 designs: "logo" and "logo cursive"           -->
 
@@ -74,7 +74,7 @@
                 <div class="row">
                     <section id="loginForm">
                         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
+                         {
                         @Html.AntiForgeryToken()
                         <h4 style="color: white;">Используйте локальную учетную запись для входа</h4>
                         <hr />
@@ -102,7 +102,7 @@
                                 <input type="submit" value="Выполнить вход" class="btn btn-default" style="color: white;" />
                             </div>
                         </div>
-                }
+                         }
                     </section>
                 </div>
             </div>

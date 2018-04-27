@@ -195,7 +195,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TaskasController.cs" />
-    <Compile Include="Controllers\TaskStatusesController.cs" />
+    <Compile Include="Controllers\TaskStatusController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -458,6 +458,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Delete.cshtml" />
     <Content Include="Views\Categories\Details.cshtml" />
@@ -468,17 +469,17 @@
     <Content Include="Views\Companies\Details.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
-    <Content Include="Views\TaskStatuses\Create.cshtml" />
-    <Content Include="Views\TaskStatuses\Delete.cshtml" />
-    <Content Include="Views\TaskStatuses\Details.cshtml" />
-    <Content Include="Views\TaskStatuses\Edit.cshtml" />
-    <Content Include="Views\TaskStatuses\Index.cshtml" />
     <Content Include="Views\Taskas\Create.cshtml" />
     <Content Include="Views\Taskas\Delete.cshtml" />
     <Content Include="Views\Taskas\Details.cshtml" />
     <Content Include="Views\Taskas\Edit.cshtml" />
     <Content Include="Views\Taskas\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\TaskStatus\Create.cshtml" />
+    <Content Include="Views\TaskStatus\Delete.cshtml" />
+    <Content Include="Views\TaskStatus\Details.cshtml" />
+    <Content Include="Views\TaskStatus\Edit.cshtml" />
+    <Content Include="Views\TaskStatus\Index.cshtml" />
+    <Content Include="Views\Taskas\OwnIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
