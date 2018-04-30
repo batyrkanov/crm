@@ -12,24 +12,18 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CompanyName)
+            Наименование компании
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CompanyName)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
+       
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CompanyId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.CompanyId }) |
+    @Html.ActionLink("Назад", "Index")
 </p>

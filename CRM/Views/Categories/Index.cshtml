@@ -11,7 +11,7 @@
 <table class="table table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
+            Наименование категории
         </th>
         <th></th>
     </tr>
@@ -22,9 +22,9 @@
             @Html.DisplayFor(modelItem => item.CategoryName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CategoryId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryId })
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.CategoryId }) |
+            @Html.ActionLink("Просмотреть", "Details", new { id=item.CategoryId }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.CategoryId })
         </td>
     </tr>
 }

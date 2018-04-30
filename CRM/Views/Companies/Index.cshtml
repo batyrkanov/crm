@@ -11,7 +11,7 @@
 <table class="table table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CompanyName)
+            Наименование компании
         </th>
         <th></th>
     </tr>
@@ -22,9 +22,9 @@
             @Html.DisplayFor(modelItem => item.CompanyName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CompanyId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CompanyId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CompanyId })
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.CompanyId }) |
+            @Html.ActionLink("Подробно", "Details", new { id=item.CompanyId }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.CompanyId })
         </td>
     </tr>
 }

@@ -207,6 +207,14 @@
     <Compile Include="Migrations\201804241454175_second.Designer.cs">
       <DependentUpon>201804241454175_second.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804300917458_EditTasksTable.cs" />
+    <Compile Include="Migrations\201804300917458_EditTasksTable.Designer.cs">
+      <DependentUpon>201804300917458_EditTasksTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804300921011_DescriptionLengthMax.cs" />
+    <Compile Include="Migrations\201804300921011_DescriptionLengthMax.Designer.cs">
+      <DependentUpon>201804300921011_DescriptionLengthMax.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -435,8 +443,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -503,6 +509,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804241454175_second.resx">
       <DependentUpon>201804241454175_second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804300917458_EditTasksTable.resx">
+      <DependentUpon>201804300917458_EditTasksTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804300921011_DescriptionLengthMax.resx">
+      <DependentUpon>201804300921011_DescriptionLengthMax.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

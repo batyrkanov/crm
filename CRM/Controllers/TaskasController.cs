@@ -44,11 +44,11 @@ namespace CRM.Controllers
         // GET: Taskas/Create
         public ActionResult Create()
         {
-            SelectList categoriesList = new SelectList(db.Categories, "CategoryId", "CategoryName");
+            SelectList categoriesList = new SelectList(db.Categories, "CategoryName", "CategoryName");
             ViewBag.CategoriesList = categoriesList;
-            SelectList companiesList = new SelectList(db.Companies, "CompanyId", "CompanyName");
+            SelectList companiesList = new SelectList(db.Companies, "CompanyName", "CompanyName");
             ViewBag.CompaniesList = companiesList;
-            SelectList statusesList = new SelectList(db.TaskStatuses, "StatusId", "StatusName");
+            SelectList statusesList = new SelectList(db.TaskStatuses, "StatusName", "StatusName");
             ViewBag.StatusesList = statusesList;
             return View();
         }
@@ -58,24 +58,20 @@ namespace CRM.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "TaskId,TaskName,CompanyId,CategoryId,TaskDate,ManagerName,TaskStatus,Description")] Taska taska)
+        public async Task<ActionResult> Create([Bind(Include = "TaskId,TaskName,CompanyName,CategoryName,TaskDate,ManagerName,TaskStatus,Description")] Taska taska)
         {
             if (ModelState.IsValid)
             {
-                SelectList companiesList = new SelectList(db.Companies, "CompanyId", "CompanyName");
                
                 Company company = new Company();
                 taska.TaskId = Guid.NewGuid();
                 taska.ManagerName = User.Identity.Name;
-                company.CompanyId = Guid.NewGuid();
-                company.CompanyName = taska.CompanyId;
-                if (taska.CompanyId == "" || taska.CompanyId == null)
-                {
-                    taska.CompanyId = companiesList.SelectedValue.ToString();
-
-                }
-                db.Companies.Add(company);
+                company.CompanyName = taska.CompanyName;
                 db.Tasks.Add(taska);
+                
+
+                company.CompanyId = Guid.NewGuid();
+                db.Companies.Add(company);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

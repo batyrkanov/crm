@@ -5,76 +5,74 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>OwnIndex</h2>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
                     <h4 class="title">Мои задачи</h4>
-                    <p class="category">@Html.ActionLink("Create New", "Create")</p>
+                    <p class="category">@Html.ActionLink("Создать задачу", "Create")</p>
                 </div>
                 <div class="content table-responsive table-full-width">
                     <table class="table table-striped">
+                        <tr>
+                            <th>
+                                Наименование задачи
+                            </th>
+                            <th>
+                                Компания
+                            </th>
+                            <th>
+                                Категория
+                            </th>
+                            <th>
+                                Дата
+                            </th>
+                            <th>
+                                Менеджер
+                            </th>
+                            <th>
+                                Статус
+                            </th>
+                            <th>
+                                Описание
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
                             <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.TaskName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CompanyId)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CategoryId)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.TaskDate)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.ManagerName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.TaskStatus)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Description)
-                                </th>
-                                <th></th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TaskName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CompanyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TaskDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ManagerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TaskStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Редактировать", "Edit", new { id = item.TaskId }) |
+                                    @Html.ActionLink("Подробно", "Details", new { id = item.TaskId }) |
+                                    @Html.ActionLink("Удалить", "Delete", new { id = item.TaskId })
+                                </td>
                             </tr>
+                        }
 
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TaskName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CompanyId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CategoryId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TaskDate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ManagerName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TaskStatus)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Description)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.TaskId }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.TaskId }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.TaskId })
-                                    </td>
-                                </tr>
-                            }
-
-                        </table>
+                    </table>
                 </div>
             </div>
         </div>

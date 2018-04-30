@@ -13,31 +13,31 @@
             <div class="card">
                 <div class="header">
                     <h4 class="title">Задачи</h4>
-                    <p class="category">@Html.ActionLink("Create New", "Create")</p>
+                    <p class="category">@Html.ActionLink("Создать задачу", "Create")</p>
                 </div>
                 <div class="content table-responsive table-full-width">
                     <table class="table table-striped">
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.TaskName)
+                                Наименование задачи
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CompanyId)
+                                Компания
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CategoryId)
+                                Категория
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.TaskDate)
+                                Дата
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ManagerName)
+                                Менеджер
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.TaskStatus)
+                                Статус
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Description)
+                                Описание
                             </th>
                             <th></th>
                         </tr>
@@ -49,10 +49,10 @@
                                     @Html.DisplayFor(modelItem => item.TaskName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CompanyId)
+                                    @Html.DisplayFor(modelItem => item.CompanyName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CategoryId)
+                                    @Html.DisplayFor(modelItem => item.CategoryName)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.TaskDate)
@@ -67,9 +67,9 @@
                                     @Html.DisplayFor(modelItem => item.Description)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.TaskId }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.TaskId }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.TaskId })
+                                    @Html.ActionLink("Редактирование", "Edit", new { id = item.TaskId }) |
+                                    @Html.ActionLink("Подробно", "Details", new { id = item.TaskId }) |
+                                    @Html.ActionLink("Удалить", "Delete", new { id = item.TaskId })
                                 </td>
                             </tr>
                         }

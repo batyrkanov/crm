@@ -15,21 +15,20 @@ namespace CRM.Models
         [StringLength(50)]
         public string TaskName { get; set; }
 
-        [StringLength(128)]
-        public string CompanyId { get; set; }
+        [StringLength(250)]
+        public string CompanyName { get; set; }
 
-        [StringLength(128)]
-        public string CategoryId { get; set; }
+        [StringLength(250)]
+        public string CategoryName { get; set; }
 
         public DateTime? TaskDate { get; set; }
 
-        [StringLength(128)]
+        [StringLength(250)]
         public string ManagerName { get; set; }
 
-        [StringLength(128)]
+        [StringLength(250)]
         public string TaskStatus { get; set; }
 
-        [Column(TypeName = "text")]
         public string Description { get; set; }
 
         public virtual Category Categories { get; set; }

@@ -5,14 +5,13 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Подробно</h2>
 
 <div>
-    <h4>TaskStatus</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.StatusName)
+            Статус
         </dt>
 
         <dd>
@@ -22,6 +21,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.StatusId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.StatusId }) |
+    @Html.ActionLink("Назад", "Index")
 </p>

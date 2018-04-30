@@ -15,9 +15,11 @@ namespace CRM.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        
         // GET: Companies
         public async Task<ActionResult> Index()
         {
+            
             return View(await db.Companies.ToListAsync());
         }
 
@@ -124,6 +126,21 @@ namespace CRM.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void Sync()
+        {
+            foreach (var item in db.Tasks)
+            {
+                foreach (var item2 in db.Companies)
+                {
+                    if (item.CompanyName != item2.CompanyName)
+                    {
+                        item2.CompanyId = Guid.NewGuid();
+                        item2.CompanyName = item.CompanyName;
+                    }
+                }
+            }
         }
     }
 }

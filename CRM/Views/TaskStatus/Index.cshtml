@@ -5,15 +5,13 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить статус", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.StatusName)
+            Статус
         </th>
         <th></th>
     </tr>
@@ -24,9 +22,9 @@
             @Html.DisplayFor(modelItem => item.StatusName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StatusId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StatusId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StatusId })
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.StatusId }) |
+            @Html.ActionLink("Подробно", "Details", new { id=item.StatusId }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.StatusId })
         </td>
     </tr>
 }
