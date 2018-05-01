@@ -18,7 +18,7 @@ namespace CRM.Controllers
         // GET: Taskas
         public async Task<ActionResult> Index()
         {
-            return View(await db.Tasks.ToListAsync());
+            return View(await db.Tasks.OrderByDescending(x=>x.TaskDate).ToListAsync());
         }
 
         public async Task<ActionResult> OwnIndex()
@@ -44,11 +44,11 @@ namespace CRM.Controllers
         // GET: Taskas/Create
         public ActionResult Create()
         {
-            SelectList categoriesList = new SelectList(db.Categories, "CategoryName", "CategoryName");
+            SelectList categoriesList = new SelectList(db.Categories, "CategoryId", "CategoryName");
             ViewBag.CategoriesList = categoriesList;
-            SelectList companiesList = new SelectList(db.Companies, "CompanyName", "CompanyName");
+            SelectList companiesList = new SelectList(db.Companies, "CompanyId", "CompanyName");
             ViewBag.CompaniesList = companiesList;
-            SelectList statusesList = new SelectList(db.TaskStatuses, "StatusName", "StatusName");
+            SelectList statusesList = new SelectList(db.TaskStatuses, "StatusId", "StatusName");
             ViewBag.StatusesList = statusesList;
             return View();
         }
@@ -91,6 +91,13 @@ namespace CRM.Controllers
             {
                 return HttpNotFound();
             }
+
+            SelectList categoriesList = new SelectList(db.Categories, "CategoryId", "CategoryName");
+            ViewBag.CategoriesList = categoriesList;
+            SelectList companiesList = new SelectList(db.Companies, "CompanyId", "CompanyName");
+            ViewBag.CompaniesList = companiesList;
+            SelectList statusesList = new SelectList(db.TaskStatuses, "StatusId", "StatusName");
+            ViewBag.StatusesList = statusesList;
             return View(taska);
         }
 
