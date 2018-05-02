@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using CRM.Models;
 
 namespace CRM.Controllers
@@ -16,9 +17,13 @@ namespace CRM.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Categories
-        public async Task<ActionResult> Index()
+        public ActionResult Index(int? page)
         {
-            return View(await db.Categories.ToListAsync());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            // возвращаем список категорий, сортируем по наименованию
+            IPagedList<Category> category = db.Categories.OrderByDescending(x => x.CategoryName).ToPagedList(pageNumber, pageSize);
+            return View(category);
         }
 
         // GET: Categories/Details/5

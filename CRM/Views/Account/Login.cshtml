@@ -64,13 +64,13 @@
         <div class="cover black" data-color="black"></div>
 
         <!--   You can change the black color for the filter with those colors: blue, green, red, orange       -->
-        <div class="container">
+        <div class="container" style="align-items: center; width: 30%;">
             <h1 class="logo cursive">
                 Login
             </h1>
             <!--  H1 can have 2 designs: "logo" and "logo cursive"           -->
 
-            <div class="content">
+            <div class="content" style="margin-top: 20%;">
                 <div class="row">
                     <section id="loginForm">
                         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -80,25 +80,25 @@
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label", @style = "color: white;" })
-                            <div class="col-md-10">
+                            @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 control-label", @style = "color: white;" })
+                            <div class="col-md-8">
                                 @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Введите логин", @required = "required" })
                                 @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label", @style = "color: white;" })
-                            <div class="col-md-10">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label", @style = "color: white;" })
+                            <div class="col-md-8">
                                 @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Введите пароль", @required = "required" })
                                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.CheckBoxFor(m => m.RememberMe, new { @style = "margin-left: 1.5%; margin - top: 1 %; "})
-                            @Html.LabelFor(m => m.RememberMe, new { @class = "col-md-2 control-label", @style = "color: white;" })
+                            @Html.CheckBoxFor(m => m.RememberMe, new { @style = "margin-left: 2.5%; margin - top: 1 %; "})
+                            @Html.LabelFor(m => m.RememberMe, new { @class = "col-md-4 control-label", @style = "color: white;" })
                         </div>
                         <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
+                            <div class="col-md-offset-4 col-md-8">
                                 <input type="submit" value="Выполнить вход" class="btn btn-default" style="color: white;" />
                             </div>
                         </div>

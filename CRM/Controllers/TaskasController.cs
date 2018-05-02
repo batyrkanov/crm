@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CRM.Models;
+using PagedList;
 
 namespace CRM.Controllers
 {
@@ -15,15 +16,88 @@ namespace CRM.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Taskas
-        public async Task<ActionResult> Index()
+        public ActionResult AjaxPositionList(int? page)
         {
-            return View(await db.Tasks.OrderByDescending(x=>x.TaskDate).ToListAsync());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return PartialView(db.Tasks.Include(e => e.Companies).Include(p => p.Categories).Include(u=>u.Users).OrderBy(i => i.TaskDate).ToPagedList(pageNumber, pageSize));
         }
 
-        public async Task<ActionResult> OwnIndex()
+        // GET: Taskas
+        public ActionResult Index(int? page, string searching, string SelectedCategory, string SelectedStatus, string SelectedUser)
         {
-            return View(await db.Tasks.Where(x=>x.ManagerName == User.Identity.Name).ToListAsync());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            // возвращаем список задач, сортируем по дате
+            IPagedList<Taska> taskas = db.Tasks.Where(x => x.CompanyName.Contains(searching) || searching == null).OrderByDescending(x => x.TaskDate).ToPagedList(pageNumber, pageSize);
+
+            #region фильтрация данных
+            var rawData = (from s in db.Tasks
+                           select s).ToList();
+
+            var task = from s in rawData
+                       select s;
+            if (!String.IsNullOrEmpty(SelectedCategory))
+            {
+                taskas = task.Where(s => s.CategoryName.Trim().Equals(SelectedCategory.Trim())).ToPagedList(pageNumber, pageSize); ;
+            }
+
+            if (!String.IsNullOrEmpty(SelectedStatus))
+            {
+                taskas = task.Where(s => s.TaskStatus.Trim().Equals(SelectedStatus.Trim())).ToPagedList(pageNumber, pageSize); ;
+            }
+
+            if (!String.IsNullOrEmpty(SelectedUser))
+            {
+                taskas = task.Where(s => s.ManagerName.Trim().Equals(SelectedUser.Trim())).ToPagedList(pageNumber, pageSize); ;
+            }
+
+            var CategoriesList = from s in task
+                                 group s by s.CategoryName into newGroup
+                                 where newGroup.Key != null
+                                 orderby newGroup.Key
+                                 select new { CategoryName = newGroup.Key };
+            ViewBag.UniqCategoriesList = CategoriesList.Select(c => new SelectListItem { Value = c.CategoryName, Text = c.CategoryName }).ToPagedList(pageNumber, pageSize); ;
+
+
+            var ManagerList = from s in task
+                                 group s by s.ManagerName into newGroup
+                                 where newGroup.Key != null
+                                 orderby newGroup.Key
+                                 select new { ManagerName = newGroup.Key };
+            ViewBag.UniqManagerList = ManagerList.Select(c => new SelectListItem { Value = c.ManagerName, Text = c.ManagerName }).ToPagedList(pageNumber, pageSize); ;
+
+           
+            var StatusesList = from s in task
+                                 group s by s.TaskStatus into newGroup
+                                 where newGroup.Key != null
+                                 orderby newGroup.Key
+                                 select new { TaskStatus = newGroup.Key };
+            ViewBag.UniqStatusesList = StatusesList.Select(c => new SelectListItem { Value = c.TaskStatus, Text = c.TaskStatus }).ToPagedList(pageNumber, pageSize); ;
+
+            ViewBag.SelectedCategory = SelectedCategory;
+            ViewBag.SelectedUser = SelectedUser;
+            ViewBag.SelectedStatus = SelectedStatus;
+            #endregion
+
+            return View(taskas);
+        }
+
+        public ActionResult OwnIndex(int? page, string searching)
+        {
+            List<Category> categories = db.Categories.ToList();
+            ViewBag.Categories = categories;
+
+            List<Models.TaskStatus> statuses = db.TaskStatuses.ToList();
+            ViewBag.TaskStatuses = statuses;
+
+
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            // возвращаем список задач созданных авторизованным пользователем, сортиируем по дате
+            IPagedList<Taska> taskas = db.Tasks.Where(x => x.ManagerName == User.Identity.Name).Where(x=>x.CompanyName.Contains(searching) || searching == null).OrderByDescending(x => x.TaskDate).ToPagedList(pageNumber, pageSize);
+            return View(taskas);
         }
 
         // GET: Taskas/Details/5
@@ -151,5 +225,7 @@ namespace CRM.Controllers
             }
             base.Dispose(disposing);
         }
+
+        
     }
 }

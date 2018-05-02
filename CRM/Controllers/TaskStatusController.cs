@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CRM.Models;
+using PagedList;
 
 namespace CRM.Controllers
 {
@@ -16,9 +17,13 @@ namespace CRM.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: TaskStatus
-        public async Task<ActionResult> Index()
+        public ActionResult Index(int? page)
         {
-            return View(await db.TaskStatuses.ToListAsync());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            // возвращаем список статусов, сортируем по наименованию
+            IPagedList<Models.TaskStatus> status = db.TaskStatuses.OrderByDescending(x => x.StatusName).ToPagedList(pageNumber, pageSize);
+            return View(status);
         }
 
         // GET: TaskStatus/Details/5

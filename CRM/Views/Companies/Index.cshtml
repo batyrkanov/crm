@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CRM.Models.Company>
+﻿@model PagedList.IPagedList<CRM.Models.Company>
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Index";
@@ -16,17 +17,20 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompanyName)
-        </td>
-        <td>
-            @Html.ActionLink("Редактировать", "Edit", new { id=item.CompanyId }) |
-            @Html.ActionLink("Подробно", "Details", new { id=item.CompanyId }) |
-            @Html.ActionLink("Удалить", "Delete", new { id=item.CompanyId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.CompanyId }) |
+                @Html.ActionLink("Подробно", "Details", new { id = item.CompanyId }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.CompanyId })
+            </td>
+        </tr>
+    }
 
 </table>
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
