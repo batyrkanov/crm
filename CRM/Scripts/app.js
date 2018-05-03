@@ -132,3 +132,45 @@ $(document).ready(function () {
         }, 100)
     });
 });  
+
+
+/* add company */
+
+$('.AddCompany').on('click', function () {
+    $("#AddForm").dialog({
+        autoOpen: true,
+        position: { my: "center", at: "top+350", of: window },
+        width: 1000,
+        resizable: false,
+        title: 'Add Form',
+        modal: true,
+        open: function () {
+            $(this).load('@Url.Action("AddCompanyPartialView", "Companies")');
+        },
+        buttons: {
+            "Add Company": function () {
+                addCompanyInfo();
+            },
+            Cancel: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+    return false;
+});
+function addCompanyInfo() {
+    $.ajax({
+        url: '@Url.Action("Create", "Companies")',
+        type: 'POST',
+        data: $("#myForm").serialize(),
+        success: function (data) {
+            if (data) {
+                $(':input', '#myForm')
+                    .not(':button, :submit, :reset, :hidden')
+                    .val('')
+                    .removeAttr('checked')
+                    .removeAttr('selected');
+            }
+        }
+    });
+}

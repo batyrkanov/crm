@@ -20,7 +20,7 @@ namespace CRM.Controllers
         {
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return PartialView(db.Tasks.Include(e => e.Companies).Include(p => p.Categories).Include(u=>u.Users).OrderBy(i => i.TaskDate).ToPagedList(pageNumber, pageSize));
+            return PartialView(db.Tasks.OrderByDescending(x => x.TaskDate).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Taskas
@@ -91,8 +91,6 @@ namespace CRM.Controllers
             List<Models.TaskStatus> statuses = db.TaskStatuses.ToList();
             ViewBag.TaskStatuses = statuses;
 
-
-
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             // возвращаем список задач созданных авторизованным пользователем, сортиируем по дате
@@ -118,12 +116,10 @@ namespace CRM.Controllers
         // GET: Taskas/Create
         public ActionResult Create()
         {
-            SelectList categoriesList = new SelectList(db.Categories, "CategoryId", "CategoryName");
-            ViewBag.CategoriesList = categoriesList;
-            SelectList companiesList = new SelectList(db.Companies, "CompanyId", "CompanyName");
-            ViewBag.CompaniesList = companiesList;
-            SelectList statusesList = new SelectList(db.TaskStatuses, "StatusId", "StatusName");
-            ViewBag.StatusesList = statusesList;
+            
+            ViewBag.CategoriesList = new SelectList(db.Categories, "CategoryName", "CategoryName");
+            ViewBag.CompaniesList = new SelectList(db.Companies, "CompanyName", "CompanyName");
+            ViewBag.StatusesList = new SelectList(db.TaskStatuses, "StatusName", "StatusName");
             return View();
         }
 
@@ -132,20 +128,15 @@ namespace CRM.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "TaskId,TaskName,CompanyName,CategoryName,TaskDate,ManagerName,TaskStatus,Description")] Taska taska)
+        public async Task<ActionResult> Create(Taska taska)
         {
+          
             if (ModelState.IsValid)
             {
-               
-                Company company = new Company();
+
                 taska.TaskId = Guid.NewGuid();
                 taska.ManagerName = User.Identity.Name;
-                company.CompanyName = taska.CompanyName;
                 db.Tasks.Add(taska);
-                
-
-                company.CompanyId = Guid.NewGuid();
-                db.Companies.Add(company);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -165,13 +156,9 @@ namespace CRM.Controllers
             {
                 return HttpNotFound();
             }
-
-            SelectList categoriesList = new SelectList(db.Categories, "CategoryId", "CategoryName");
-            ViewBag.CategoriesList = categoriesList;
-            SelectList companiesList = new SelectList(db.Companies, "CompanyId", "CompanyName");
-            ViewBag.CompaniesList = companiesList;
-            SelectList statusesList = new SelectList(db.TaskStatuses, "StatusId", "StatusName");
-            ViewBag.StatusesList = statusesList;
+            ViewBag.CategoriesList = new SelectList(db.Categories, "CategoryName", "CategoryName");
+            ViewBag.CompaniesList = new SelectList(db.Companies, "CompanyName", "CompanyName");
+            ViewBag.StatusesList = new SelectList(db.TaskStatuses, "StatusName", "StatusName");
             return View(taska);
         }
 
@@ -180,10 +167,11 @@ namespace CRM.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "TaskId,TaskName,CompanyId,CategoryId,TaskDate,ManagerName,TaskStatus,Description")] Taska taska)
+        public async Task<ActionResult> Edit(Taska taska)
         {
             if (ModelState.IsValid)
             {
+                taska.ManagerName = User.Identity.Name;
                 db.Entry(taska).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

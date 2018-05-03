@@ -146,5 +146,24 @@ namespace CRM.Controllers
                 }
             }
         }
+
+        public PartialViewResult AddCompanyPartialView()
+        {
+            return PartialView("AddCompanyPartialView", new Company());
+        }
+
+        [HttpPost]
+        public JsonResult AddUserInfo(Company model)
+        {
+            bool isSuccess = true;
+            if (ModelState.IsValid)
+            {
+                model.CompanyId = Guid.NewGuid();
+                db.Companies.Add(model);
+                db.SaveChangesAsync();
+                RedirectToAction("Create", "Taskas");
+            }
+            return Json(isSuccess);
+        }
     }
 }

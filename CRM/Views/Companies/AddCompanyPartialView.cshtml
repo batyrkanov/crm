@@ -1,0 +1,11 @@
+﻿@model CRM.Models.Company
+
+
+
+<form id="myForm">
+    <div id="AddForm">
+        @Html.LabelFor(m => m.CompanyName)
+        @Html.TextBoxFor(m => m.CompanyName)
+    </div>
+    <input type="submit" value="Сохранить" class="btn btn-default" />
+</form>

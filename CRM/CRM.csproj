@@ -495,7 +495,7 @@
     <Content Include="Views\TaskStatus\Index.cshtml" />
     <Content Include="Views\Taskas\OwnIndex.cshtml" />
     <Content Include="Views\Taskas\AjaxPositionList.cshtml" />
-    <Content Include="Views\Taskas\TasksFilter.cshtml" />
+    <Content Include="Views\Companies\AddCompanyPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

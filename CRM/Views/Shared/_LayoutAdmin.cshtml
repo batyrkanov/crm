@@ -73,12 +73,15 @@
                             <p>Все задачи</p>
                         </a>
                     </li>
+                    @if (User.IsInRole("admin"))
+                    {
                     <li>
                         <a href="@Url.Action("Register", "Account")">
                             <i class="fa fa-add-user"></i>
                             <p>Регистрация пользователя</p>
                         </a>
                     </li>
+                    }
                 </ul>
             </div>
         </div>

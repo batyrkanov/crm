@@ -8,78 +8,101 @@
 <h2>Создание задачи</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.TaskName, "Название задачи", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TaskName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TaskName, "", new { @class = "text-danger" })
+    <div id="AddForm"></div>
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskName, "Название задачи", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TaskName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TaskName, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.CompanyName, "Наименование компании", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-9">
-            @Html.DropDownListFor(model => model.CompanyName, ViewBag.CompaniesList as SelectList, "Выберите компанию...", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger validation-span" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CompanyName, "Наименование компании", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.CompanyName, ViewBag.CompaniesList as SelectList, "Выберите компанию...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger validation-span" })
+            </div>
+            <div class="col-md-1">
+                <button class="AddCompany">+</button>
+            </div>
         </div>
-        <div class="col-md-1">
-            <button type="button" class="btn click-btn"><a href="@Url.Action("Create", "Companies")">+</a></button>
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.CategoryName, "Категория", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-9">
-            @Html.DropDownListFor(model => model.CategoryName, ViewBag.CategoriesList as SelectList, "Выберите категорию...", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger validation-span" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryName, "Категория", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.CategoryName, ViewBag.CategoriesList as SelectList, "Выберите категорию...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger validation-span" })
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn click-btn"><a href="@Url.Action("Create", "Categories")">+</a></button>
+            </div>
         </div>
-        <div class="col-md-1">
-            <button type="button" class="btn click-btn"><a href="@Url.Action("Create", "Categories")">+</a></button>
-        </div>
-    </div>
 
-    <div class="form-group">
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker2'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+        @*<div class="form-group">
         @Html.LabelFor(model => model.TaskDate, "Выберите дату", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.TaskDate, new { htmlAttributes = new { @class = "form-control date-picker", @type = "date" } })
-            @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" name="TaskDate" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
+                </div>
+            @Html.EditorFor(model => model.TaskDate, new { htmlAttributes = new { @class = "form-control input-group date", @id = "datetimepicker1", @type = "text", @min = "2000-01-02", @max = "2100-12-31" } })
+
         </div>
-    </div>
+        </div>*@
 
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.TaskStatus, "Выберите статус", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-9">
-            @Html.DropDownListFor(model => model.TaskStatus, ViewBag.StatusesList as SelectList, "Выберите статус...", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.TaskStatus, "", new { @class = "text-danger validation-span" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskStatus, "Выберите статус", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.TaskStatus, ViewBag.StatusesList as SelectList, "Выберите статус...", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TaskStatus, "", new { @class = "text-danger validation-span" })
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn click-btn"><a href="@Url.Action("Create", "TaskStatus")">+</a></button>
+            </div>
         </div>
-        <div class="col-md-1">
-            <button type="button" class="btn click-btn"><a href="@Url.Action("Create", "TaskStatus")">+</a></button>
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description, "Описание", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, "Описание", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Сохранить" class="btn btn-default" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
         </div>
     </div>
-</div>
 }
 
 <div>
     @Html.ActionLink("Назад", "Index")
 </div>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            locale: 'ru'
+        });
+    });
+</script>
