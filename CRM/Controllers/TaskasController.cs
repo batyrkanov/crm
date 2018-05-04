@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using CRM.Models;
 using PagedList;
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
 
 namespace CRM.Controllers
 {
@@ -83,18 +85,49 @@ namespace CRM.Controllers
             return View(taskas);
         }
 
-        public ActionResult OwnIndex(int? page, string searching)
+        public ActionResult OwnIndex(int? page, string searching, string SelectedCategory, string SelectedStatus)
         {
-            List<Category> categories = db.Categories.ToList();
-            ViewBag.Categories = categories;
-
-            List<Models.TaskStatus> statuses = db.TaskStatuses.ToList();
-            ViewBag.TaskStatuses = statuses;
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
+            IPagedList<Taska> taskas = db.Tasks.Where(x => x.ManagerName.Contains(User.Identity.Name) && (x.CompanyName.Contains(searching) || searching == null)).OrderByDescending(x => x.TaskDate).ToPagedList(pageNumber, pageSize);
+
+            #region фильтрация данных
+            var rawData = (from s in db.Tasks
+                           select s).ToList();
+
+            var task = from s in rawData
+                       select s;
+            if (!String.IsNullOrEmpty(SelectedCategory))
+            {
+                taskas = task.Where(s => s.CategoryName.Trim().Equals(SelectedCategory.Trim())).ToPagedList(pageNumber, pageSize); ;
+            }
+
+            if (!String.IsNullOrEmpty(SelectedStatus))
+            {
+                taskas = task.Where(s => s.TaskStatus.Trim().Equals(SelectedStatus.Trim())).ToPagedList(pageNumber, pageSize); ;
+            }
+
+
+            var CategoriesList = from s in task
+                                 group s by s.CategoryName into newGroup
+                                 where newGroup.Key != null
+                                 orderby newGroup.Key
+                                 select new { CategoryName = newGroup.Key };
+            ViewBag.UniqCategoriesList = CategoriesList.Select(c => new SelectListItem { Value = c.CategoryName, Text = c.CategoryName }).ToPagedList(pageNumber, pageSize); ;
+            
+            var StatusesList = from s in task
+                               group s by s.TaskStatus into newGroup
+                               where newGroup.Key != null
+                               orderby newGroup.Key
+                               select new { TaskStatus = newGroup.Key };
+            ViewBag.UniqStatusesList = StatusesList.Select(c => new SelectListItem { Value = c.TaskStatus, Text = c.TaskStatus }).ToPagedList(pageNumber, pageSize); ;
+
+            ViewBag.SelectedCategory = SelectedCategory;
+            ViewBag.SelectedStatus = SelectedStatus;
+            #endregion
+
             // возвращаем список задач созданных авторизованным пользователем, сортиируем по дате
-            IPagedList<Taska> taskas = db.Tasks.Where(x => x.ManagerName == User.Identity.Name).Where(x=>x.CompanyName.Contains(searching) || searching == null).OrderByDescending(x => x.TaskDate).ToPagedList(pageNumber, pageSize);
             return View(taskas);
         }
 
@@ -133,9 +166,10 @@ namespace CRM.Controllers
           
             if (ModelState.IsValid)
             {
-
+                var currentUser = db.Users.Find(User.Identity.GetUserId());
+                string namePlusLogin = currentUser.Name + " " + currentUser.Surname + " (" + User.Identity.Name + ")";
                 taska.TaskId = Guid.NewGuid();
-                taska.ManagerName = User.Identity.Name;
+                taska.ManagerName = namePlusLogin;
                 db.Tasks.Add(taska);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -171,7 +205,9 @@ namespace CRM.Controllers
         {
             if (ModelState.IsValid)
             {
-                taska.ManagerName = User.Identity.Name;
+                var currentUser = db.Users.Find(User.Identity.GetUserId());
+                string namePlusLogin = currentUser.Name + " " + currentUser.Surname + " (" + User.Identity.Name + ")";
+                taska.ManagerName = namePlusLogin;
                 db.Entry(taska).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

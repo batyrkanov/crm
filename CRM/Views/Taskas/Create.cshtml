@@ -45,29 +45,14 @@
             </div>
         </div>
 
+
         <div class="form-group">
-            <div class='input-group date' id='datetimepicker2'>
-                <input type='text' class="form-control" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
+            @Html.LabelFor(model => model.TaskDate, "Выберите дату", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TaskDate, new { htmlAttributes = new { @class = "form-control", @id = "datetimepicker2", @type = "datetime-local", @min = "2000-01-02T00:00:00", @max = "2100-12-31T23:59:59" } })
+                @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
             </div>
         </div>
-        @*<div class="form-group">
-        @Html.LabelFor(model => model.TaskDate, "Выберите дату", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" name="TaskDate" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                    @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
-                </div>
-            @Html.EditorFor(model => model.TaskDate, new { htmlAttributes = new { @class = "form-control input-group date", @id = "datetimepicker1", @type = "text", @min = "2000-01-02", @max = "2100-12-31" } })
-
-        </div>
-        </div>*@
-
 
         <div class="form-group">
             @Html.LabelFor(model => model.TaskStatus, "Выберите статус", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -99,10 +84,3 @@
 <div>
     @Html.ActionLink("Назад", "Index")
 </div>
-<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker1').datetimepicker({
-            locale: 'ru'
-        });
-    });
-</script>

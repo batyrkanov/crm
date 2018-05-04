@@ -13,10 +13,8 @@
     <title>ADBoards</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+    <link href="~/Content/bootstrap_datetimepicker/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap core CSS     -->
-    <link href="~/Content/dashboard/assets/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Animation library for notifications   -->
     <link href="~/Content/dashboard/assets/css/animate.min.css" rel="stylesheet" />
     <!--  Paper Dashboard core CSS    -->
@@ -28,14 +26,11 @@
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="~/Content/dashboard/assets/css/themify-icons.css" rel="stylesheet">
     <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap_datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="wrapper">
         <div class="sidebar" data-background-color="white" data-active-color="danger">
-            <!--
-                Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
-                Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
-            -->
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="@Url.Action("Index", "Home")" class="simple-text">
@@ -43,31 +38,31 @@
                     </a>
                 </div>
                 <ul class="nav">
-                    <li>
+                    <li id="categories">
                         <a href="@Url.Action("Index", "Categories")">
                             <i class="ti-panel"></i>
                             <p>Категория</p>
                         </a>
                     </li>
-                    <li>
+                    <li id="companies">
                         <a href="@Url.Action("Index", "Companies")">
                             <i class="ti-user"></i>
                             <p>Компания</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li id="taskStatus">
                         <a href="@Url.Action("Index", "TaskStatus")">
                             <i class="ti-view-list-alt"></i>
                             <p>Статус задачи</p>
                         </a>
                     </li>
-                    <li>
+                    <li id="ownIndex">
                         <a href="@Url.Action("OwnIndex", "Taskas")">
                             <i class="ti-text"></i>
                             <p>Мои задачи</p>
                         </a>
                     </li>
-                    <li>
+                    <li id="taskas">
                         <a href="@Url.Action("Index", "Taskas")">
                             <i class="ti-pencil-alt2"></i>
                             <p>Все задачи</p>
@@ -75,12 +70,12 @@
                     </li>
                     @if (User.IsInRole("admin"))
                     {
-                    <li>
-                        <a href="@Url.Action("Register", "Account")">
-                            <i class="fa fa-add-user"></i>
-                            <p>Регистрация пользователя</p>
-                        </a>
-                    </li>
+                        <li id="reg">
+                            <a href="@Url.Action("Register", "Account")">
+                                <i class="fa fa-add-user"></i>
+                                <p>Регистрация пользователя</p>
+                            </a>
+                        </li>
                     }
                 </ul>
             </div>
@@ -119,9 +114,8 @@
     </div>
 
     <!--   Core JS Files   -->
-    <script src="~/Content/dashboard/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
-    <script src="~/Content/dashboard/assets/js/bootstrap.min.js" type="text/javascript"></script>
     <!--  Checkbox, Radio & Switch Plugins -->
+    <script src="~/Content/bootstrap_datetimepicker/js/bootstrap.min.js"></script>
     <script src="~/Content/dashboard/assets/js/bootstrap-checkbox-radio.js"></script>
     <!--  Charts Plugin -->
     <script src="~/Content/dashboard/assets/js/chartist.min.js"></script>
@@ -131,6 +125,74 @@
     <script src="~/Content/dashboard/assets/js/paper-dashboard.js"></script>
     <script src="~/Content/dashboard/assets/js/demo.js"></script>
     <script src="~/Scripts/app.js"></script>
+    <script src="~/Content/bootstrap_datetimepicker/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/bootstrap_datetimepicker/js/moment-with-locales.min.js"></script>
+    <script src="~/Content/bootstrap_datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript">
+
+        var siteUrl = window.location.pathname;
+        var splitUrl = siteUrl.split('/');
+
+        var companies = document.getElementById("companies");
+        var taskStatus = document.getElementById("taskStatus");
+        var categories = document.getElementById("categories");
+        var ownIndex = document.getElementById("ownIndex");
+        var taskas = document.getElementById("taskas");
+        var reg = document.getElementById("reg");
+        
+        if (splitUrl[2] == "OwnIndex") {
+            ownIndex.classList.add("active");
+            companies.classList.remove("active");
+            taskStatus.classList.remove("active");
+            taskas.classList.remove("active");
+            categories.classList.remove("active");
+            reg.classList.remove("active");
+        }
+        else if (splitUrl[1] == "Taskas") {
+            taskas.classList.add("active");
+            companies.classList.remove("active");
+            taskStatus.classList.remove("active");
+            categories.classList.remove("active");
+            reg.classList.remove("active");
+            ownIndex.classList.remove("active");
+        }
+        else if (splitUrl[1] == "TaskStatus") {
+            taskStatus.classList.add("active");
+            companies.classList.remove("active");
+            taskas.classList.remove("active");
+            categories.classList.remove("active");
+            reg.classList.remove("active");
+            ownIndex.classList.remove("active");
+        }
+        else if (splitUrl[1] == "Companies") {
+            companies.classList.add("active");
+            taskStatus.classList.remove("active");
+            taskas.classList.remove("active");
+            categories.classList.remove("active");
+            reg.classList.remove("active");
+            ownIndex.classList.remove("active");
+        }
+        else if (splitUrl[1] == "Categories") {
+            categories.classList.add("active");
+            companies.classList.remove("active");
+            taskStatus.classList.remove("active");
+            taskas.classList.remove("active");
+            reg.classList.remove("active");
+            ownIndex.classList.remove("active");
+        }
+        else {
+            reg.classList.add("active");
+            companies.classList.remove("active");
+            taskStatus.classList.remove("active");
+            taskas.classList.remove("active");
+            categories.classList.remove("active");
+            ownIndex.classList.remove("active");
+        }
+        
+
+    </script>
+
+
 </body>
 </html>
 

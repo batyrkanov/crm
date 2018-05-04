@@ -233,6 +233,21 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap_datetimepicker\css\bootstrap-datetimepicker-standalone.css" />
+    <Content Include="Content\bootstrap_datetimepicker\css\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap_datetimepicker\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap_datetimepicker\css\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap_datetimepicker\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap_datetimepicker\css\bootstrap.css" />
+    <Content Include="Content\bootstrap_datetimepicker\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap_datetimepicker\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap_datetimepicker\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="Content\bootstrap_datetimepicker\js\bootstrap.js" />
+    <Content Include="Content\bootstrap_datetimepicker\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap_datetimepicker\js\jquery-3.2.1.min.js" />
+    <Content Include="Content\bootstrap_datetimepicker\js\moment-with-locales.js" />
+    <Content Include="Content\bootstrap_datetimepicker\js\moment-with-locales.min.js" />
+    <Content Include="Content\bootstrap_datetimepicker\js\npm.js" />
     <Content Include="Content\dashboard\assets\css\animate.min.css" />
     <Content Include="Content\dashboard\assets\css\bootstrap.min.css" />
     <Content Include="Content\dashboard\assets\css\demo.css" />
@@ -427,6 +442,14 @@
     <Content Include="Content\main\images\flags\.DS_Store" />
     <Content Include="Content\main\js\.DS_Store" />
     <Content Include="Content\main\video\.DS_Store" />
+    <Content Include="Content\bootstrap_datetimepicker\css\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap_datetimepicker\css\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap_datetimepicker\css\bootstrap.css.map" />
+    <Content Include="Content\bootstrap_datetimepicker\css\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap_datetimepicker\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap_datetimepicker\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap_datetimepicker\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap_datetimepicker\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
