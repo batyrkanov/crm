@@ -32,7 +32,31 @@
             @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger validation-span" })
         </div>
         <div class="col-md-1">
-            <button type="button" class="btn click-btn"><a href="@Url.Action("Create", "Companies")">+</a></button>
+            <a href="#" class="btn btn-success" data-target="#myModalCompany" data-toggle="modal"><i class="fa fa-plus"></i></a>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MarketerName, "Имя маркетолога", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MarketerName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MarketerName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MarketerPhone, "Номер маркетолога", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MarketerPhone, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+            @Html.ValidationMessageFor(model => model.MarketerPhone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MarketerEmail, "Email маркетолога", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MarketerEmail, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+            @Html.ValidationMessageFor(model => model.MarketerEmail, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -43,27 +67,27 @@
             @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger validation-span" })
         </div>
         <div class="col-md-1">
-            <button type="button" class="btn click-btn"><a href="@Url.Action("Create", "Categories")">+</a></button>
+            <a href="#" class="btn btn-success" data-target="#myModalCategory" data-toggle="modal"><i class="fa fa-plus"></i></a>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.TaskDate, "Выберите дату", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.TaskDate, new { htmlAttributes = new { @class = "form-control", @id = "datetimepicker2", @type = "datetime-local", @min = "2000-01-02T00:00:00", @max = "2100-12-31T23:59:59" } })
+            @Html.EditorFor(model => model.TaskDate, new { htmlAttributes = new { @class = "form-control", @id = "datetimepicker2", @type = "datetime-local", @min = "2000-01-02T00:00:00", @max = "2100-12-31T23:59:59", @required = "required" } })
             @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
         </div>
     </div>
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.TaskStatus, "Выберите статус", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.StatusName, "Выберите статус", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-9">
-            @Html.DropDownListFor(model => model.TaskStatus, ViewBag.StatusesList as SelectList, "Выберите статус...", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.TaskStatus, "", new { @class = "text-danger validation-span" })
+            @Html.DropDownListFor(model => model.StatusName, ViewBag.StatusesList as SelectList, "Выберите статус...", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.StatusName, "", new { @class = "text-danger validation-span" })
         </div>
         <div class="col-md-1">
-            <button type="button" class="btn click-btn"><a href="@Url.Action("Create", "TaskStatus")">+</a></button>
+            <a href="#" class="btn btn-success" data-target="#myModalStatus" data-toggle="modal"><i class="fa fa-plus"></i></a>
         </div>
     </div>
 
@@ -83,7 +107,37 @@
 </div>
 }
 
+<div class="modal fade" id="myModalStatus">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" href="#" data-dismiss="modal">&times;</a>
+                <h3 class="modal-title">Добавление статуса</h3>
+            </div>
+            <div class="modal-body">
+                <form id="addStatus">
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StatusName, "Статус", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.StatusName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.StatusName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Добавить" class="btn btn-success" id="btnSubmitStatus" />
+                <a class="btn btn-danger" href="#" data-dismiss="modal">Отмена</a>
+            </div>
+        </div>
+    </div>
+</div>
 <div>
     @Html.ActionLink("Назад", "Index")
 </div>
 
+<script type="text/javascript" src="~/Scripts/create-in-modal.js"></script>

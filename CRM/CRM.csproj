@@ -221,6 +221,30 @@
     <Compile Include="Migrations\201804300921011_DescriptionLengthMax.Designer.cs">
       <DependentUpon>201804300921011_DescriptionLengthMax.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805050834123_MarketerInfo.cs" />
+    <Compile Include="Migrations\201805050834123_MarketerInfo.Designer.cs">
+      <DependentUpon>201805050834123_MarketerInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805050853392_Constrait.cs" />
+    <Compile Include="Migrations\201805050853392_Constrait.Designer.cs">
+      <DependentUpon>201805050853392_Constrait.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805050855437_Requires.cs" />
+    <Compile Include="Migrations\201805050855437_Requires.Designer.cs">
+      <DependentUpon>201805050855437_Requires.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805050908317_Requires1.cs" />
+    <Compile Include="Migrations\201805050908317_Requires1.Designer.cs">
+      <DependentUpon>201805050908317_Requires1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805051132412_StatusName.cs" />
+    <Compile Include="Migrations\201805051132412_StatusName.Designer.cs">
+      <DependentUpon>201805051132412_StatusName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805051229040_Required.cs" />
+    <Compile Include="Migrations\201805051229040_Required.Designer.cs">
+      <DependentUpon>201805051229040_Required.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -251,8 +275,21 @@
     <Content Include="Content\dashboard\assets\css\animate.min.css" />
     <Content Include="Content\dashboard\assets\css\bootstrap.min.css" />
     <Content Include="Content\dashboard\assets\css\demo.css" />
+    <Content Include="Content\dashboard\assets\css\icons\fa-brands.css" />
+    <Content Include="Content\dashboard\assets\css\icons\fa-brands.min.css" />
+    <Content Include="Content\dashboard\assets\css\icons\fa-regular.css" />
+    <Content Include="Content\dashboard\assets\css\icons\fa-regular.min.css" />
+    <Content Include="Content\dashboard\assets\css\icons\fa-solid.css" />
+    <Content Include="Content\dashboard\assets\css\icons\fa-solid.min.css" />
+    <Content Include="Content\dashboard\assets\css\icons\fontawesome-all.css" />
+    <Content Include="Content\dashboard\assets\css\icons\fontawesome-all.min.css" />
+    <Content Include="Content\dashboard\assets\css\icons\fontawesome.css" />
+    <Content Include="Content\dashboard\assets\css\icons\fontawesome.min.css" />
     <Content Include="Content\dashboard\assets\css\paper-dashboard.css" />
     <Content Include="Content\dashboard\assets\css\themify-icons.css" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-solid-900.svg" />
     <Content Include="Content\dashboard\assets\fonts\themify.svg" />
     <Content Include="Content\dashboard\assets\img\apple-icon.png" />
     <Content Include="Content\dashboard\assets\img\background.jpg" />
@@ -273,6 +310,9 @@
     <Content Include="Content\main\css\bootstrap.css" />
     <Content Include="Content\main\css\coming-sssoon-demo.css" />
     <Content Include="Content\main\css\coming-sssoon.css" />
+    <Content Include="Content\dashboard\assets\fonts\Muli.css" />
+    <Content Include="Content\main\css\GrandHotel.css" />
+    <Content Include="Content\main\css\Grand_Hotel\OFL.txt" />
     <Content Include="Content\main\images\apple-icon.png" />
     <Content Include="Content\main\images\blurred-black-cover.jpeg" />
     <Content Include="Content\main\images\default.jpg" />
@@ -450,9 +490,30 @@
     <Content Include="Content\bootstrap_datetimepicker\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap_datetimepicker\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\bootstrap_datetimepicker\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\dashboard\assets\fonts\7Au_p_0qiz-adZnkOCv2z3wM.woff2" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\dashboard\assets\css\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\main\css\7Au7p_IgjDKdCRWuR1azplQEGFw-0g.woff2" />
+    <Content Include="Content\main\css\Grand_Hotel\GrandHotel-Regular.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\create-in-modal.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -461,6 +522,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sidebar-active.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -534,7 +596,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804241354254_InitialCreate.resx">
@@ -548,6 +609,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804300921011_DescriptionLengthMax.resx">
       <DependentUpon>201804300921011_DescriptionLengthMax.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805050834123_MarketerInfo.resx">
+      <DependentUpon>201805050834123_MarketerInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805050853392_Constrait.resx">
+      <DependentUpon>201805050853392_Constrait.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805050855437_Requires.resx">
+      <DependentUpon>201805050855437_Requires.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805050908317_Requires1.resx">
+      <DependentUpon>201805050908317_Requires1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805051132412_StatusName.resx">
+      <DependentUpon>201805051132412_StatusName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805051229040_Required.resx">
+      <DependentUpon>201805051229040_Required.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

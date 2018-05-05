@@ -22,7 +22,7 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="~/Content/dashboard/assets/css/demo.css" rel="stylesheet" />
     <!--  Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/dashboard/assets/css/icons/fontawesome-all.css" rel="stylesheet" />
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="~/Content/dashboard/assets/css/themify-icons.css" rel="stylesheet">
     <link href="~/Content/PagedList.css" rel="stylesheet" />
@@ -46,7 +46,7 @@
                     </li>
                     <li id="companies">
                         <a href="@Url.Action("Index", "Companies")">
-                            <i class="ti-user"></i>
+                            <i class="fa fa-home"></i>
                             <p>Компания</p>
                         </a>
                     </li>
@@ -72,8 +72,8 @@
                     {
                         <li id="reg">
                             <a href="@Url.Action("Register", "Account")">
-                                <i class="fa fa-add-user"></i>
-                                <p>Регистрация пользователя</p>
+                                <i class="fa fa-plus"></i>
+                                <p>Регистрация менеджера</p>
                             </a>
                         </li>
                     }
@@ -115,83 +115,23 @@
 
     <!--   Core JS Files   -->
     <!--  Checkbox, Radio & Switch Plugins -->
-    <script src="~/Content/bootstrap_datetimepicker/js/bootstrap.min.js"></script>
-    <script src="~/Content/dashboard/assets/js/bootstrap-checkbox-radio.js"></script>
+
+    <script type="text/javascript" src="~/Content/dashboard/assets/js/bootstrap-checkbox-radio.js"></script>
     <!--  Charts Plugin -->
-    <script src="~/Content/dashboard/assets/js/chartist.min.js"></script>
+    <script type="text/javascript" src="~/Content/dashboard/assets/js/chartist.min.js"></script>
     <!--  Notifications Plugin    -->
-    <script src="~/Content/dashboard/assets/js/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="~/Content/dashboard/assets/js/bootstrap-notify.js"></script>
     <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
-    <script src="~/Content/dashboard/assets/js/paper-dashboard.js"></script>
-    <script src="~/Content/dashboard/assets/js/demo.js"></script>
-    <script src="~/Scripts/app.js"></script>
-    <script src="~/Content/bootstrap_datetimepicker/js/jquery-3.2.1.min.js"></script>
-    <script src="~/Content/bootstrap_datetimepicker/js/moment-with-locales.min.js"></script>
-    <script src="~/Content/bootstrap_datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript">
-
-        var siteUrl = window.location.pathname;
-        var splitUrl = siteUrl.split('/');
-
-        var companies = document.getElementById("companies");
-        var taskStatus = document.getElementById("taskStatus");
-        var categories = document.getElementById("categories");
-        var ownIndex = document.getElementById("ownIndex");
-        var taskas = document.getElementById("taskas");
-        var reg = document.getElementById("reg");
-        
-        if (splitUrl[2] == "OwnIndex") {
-            ownIndex.classList.add("active");
-            companies.classList.remove("active");
-            taskStatus.classList.remove("active");
-            taskas.classList.remove("active");
-            categories.classList.remove("active");
-            reg.classList.remove("active");
-        }
-        else if (splitUrl[1] == "Taskas") {
-            taskas.classList.add("active");
-            companies.classList.remove("active");
-            taskStatus.classList.remove("active");
-            categories.classList.remove("active");
-            reg.classList.remove("active");
-            ownIndex.classList.remove("active");
-        }
-        else if (splitUrl[1] == "TaskStatus") {
-            taskStatus.classList.add("active");
-            companies.classList.remove("active");
-            taskas.classList.remove("active");
-            categories.classList.remove("active");
-            reg.classList.remove("active");
-            ownIndex.classList.remove("active");
-        }
-        else if (splitUrl[1] == "Companies") {
-            companies.classList.add("active");
-            taskStatus.classList.remove("active");
-            taskas.classList.remove("active");
-            categories.classList.remove("active");
-            reg.classList.remove("active");
-            ownIndex.classList.remove("active");
-        }
-        else if (splitUrl[1] == "Categories") {
-            categories.classList.add("active");
-            companies.classList.remove("active");
-            taskStatus.classList.remove("active");
-            taskas.classList.remove("active");
-            reg.classList.remove("active");
-            ownIndex.classList.remove("active");
-        }
-        else {
-            reg.classList.add("active");
-            companies.classList.remove("active");
-            taskStatus.classList.remove("active");
-            taskas.classList.remove("active");
-            categories.classList.remove("active");
-            ownIndex.classList.remove("active");
-        }
-        
-
-    </script>
-
+    <script type="text/javascript" src="~/Content/dashboard/assets/js/paper-dashboard.js"></script>
+    <script type="text/javascript" src="~/Content/dashboard/assets/js/demo.js"></script>
+    <script type="text/javascript" src="~/Scripts/app.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" src="~/Content/bootstrap_datetimepicker/js/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="~/Content/bootstrap_datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="~/Content/bootstrap_datetimepicker/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/sidebar-active.js"></script>
 
 </body>
 </html>

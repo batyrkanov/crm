@@ -17,6 +17,7 @@ namespace CRM.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: TaskStatus
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
             int pageSize = 10;
@@ -27,6 +28,7 @@ namespace CRM.Controllers
         }
 
         // GET: TaskStatus/Details/5
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -42,6 +44,7 @@ namespace CRM.Controllers
         }
 
         // GET: TaskStatus/Create
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             return View();
@@ -52,6 +55,7 @@ namespace CRM.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Create([Bind(Include = "StatusId,StatusName")] Models.TaskStatus taskStatus)
         {
             if (ModelState.IsValid)
@@ -66,6 +70,7 @@ namespace CRM.Controllers
         }
 
         // GET: TaskStatus/Edit/5
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -85,6 +90,7 @@ namespace CRM.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit([Bind(Include = "StatusId,StatusName")] Models.TaskStatus taskStatus)
         {
             if (ModelState.IsValid)
@@ -97,6 +103,7 @@ namespace CRM.Controllers
         }
 
         // GET: TaskStatus/Delete/5
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -114,6 +121,7 @@ namespace CRM.Controllers
         // POST: TaskStatus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
             Models.TaskStatus taskStatus = await db.TaskStatuses.FindAsync(id);

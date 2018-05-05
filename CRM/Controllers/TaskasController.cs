@@ -18,6 +18,7 @@ namespace CRM.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxPositionList(int? page)
         {
             int pageSize = 10;
@@ -26,6 +27,7 @@ namespace CRM.Controllers
         }
 
         // GET: Taskas
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page, string searching, string SelectedCategory, string SelectedStatus, string SelectedUser)
         {
             int pageSize = 10;
@@ -46,7 +48,7 @@ namespace CRM.Controllers
 
             if (!String.IsNullOrEmpty(SelectedStatus))
             {
-                taskas = task.Where(s => s.TaskStatus.Trim().Equals(SelectedStatus.Trim())).ToPagedList(pageNumber, pageSize); ;
+                taskas = task.Where(s => s.StatusName.Trim().Equals(SelectedStatus.Trim())).ToPagedList(pageNumber, pageSize); ;
             }
 
             if (!String.IsNullOrEmpty(SelectedUser))
@@ -71,7 +73,7 @@ namespace CRM.Controllers
 
            
             var StatusesList = from s in task
-                                 group s by s.TaskStatus into newGroup
+                                 group s by s.StatusName into newGroup
                                  where newGroup.Key != null
                                  orderby newGroup.Key
                                  select new { TaskStatus = newGroup.Key };
@@ -85,6 +87,7 @@ namespace CRM.Controllers
             return View(taskas);
         }
 
+        [Authorize(Roles = "admin, manager")]
         public ActionResult OwnIndex(int? page, string searching, string SelectedCategory, string SelectedStatus)
         {
 
@@ -105,7 +108,7 @@ namespace CRM.Controllers
 
             if (!String.IsNullOrEmpty(SelectedStatus))
             {
-                taskas = task.Where(s => s.TaskStatus.Trim().Equals(SelectedStatus.Trim())).ToPagedList(pageNumber, pageSize); ;
+                taskas = task.Where(s => s.StatusName.Trim().Equals(SelectedStatus.Trim())).ToPagedList(pageNumber, pageSize); ;
             }
 
 
@@ -117,7 +120,7 @@ namespace CRM.Controllers
             ViewBag.UniqCategoriesList = CategoriesList.Select(c => new SelectListItem { Value = c.CategoryName, Text = c.CategoryName }).ToPagedList(pageNumber, pageSize); ;
             
             var StatusesList = from s in task
-                               group s by s.TaskStatus into newGroup
+                               group s by s.StatusName into newGroup
                                where newGroup.Key != null
                                orderby newGroup.Key
                                select new { TaskStatus = newGroup.Key };
@@ -132,6 +135,7 @@ namespace CRM.Controllers
         }
 
         // GET: Taskas/Details/5
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -147,12 +151,17 @@ namespace CRM.Controllers
         }
 
         // GET: Taskas/Create
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
-            
-            ViewBag.CategoriesList = new SelectList(db.Categories, "CategoryName", "CategoryName");
-            ViewBag.CompaniesList = new SelectList(db.Companies, "CompanyName", "CompanyName");
-            ViewBag.StatusesList = new SelectList(db.TaskStatuses, "StatusName", "StatusName");
+            List<Category> category = db.Categories.ToList();
+            ViewBag.CategoriesList = new SelectList(category, "CategoryName", "CategoryName");
+
+            List<Company> companies = db.Companies.ToList();
+            ViewBag.CompaniesList = new SelectList(companies, "CompanyName", "CompanyName");
+
+            List<Models.TaskStatus> statuses = db.TaskStatuses.ToList();
+            ViewBag.StatusesList = new SelectList(statuses, "StatusName", "StatusName");
             return View();
         }
 
@@ -161,9 +170,18 @@ namespace CRM.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Create(Taska taska)
         {
-          
+            List<Category> category = db.Categories.ToList();
+            ViewBag.CategoriesList = new SelectList(category, "CategoryName", "CategoryName");
+
+            List<Company> companies = db.Companies.ToList();
+            ViewBag.CompaniesList = new SelectList(companies, "CompanyName", "CompanyName");
+
+            List<Models.TaskStatus> statuses = db.TaskStatuses.ToList();
+            ViewBag.StatusesList = new SelectList(statuses, "StatusName", "StatusName");
+
             if (ModelState.IsValid)
             {
                 var currentUser = db.Users.Find(User.Identity.GetUserId());
@@ -179,6 +197,7 @@ namespace CRM.Controllers
         }
 
         // GET: Taskas/Edit/5
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -201,6 +220,7 @@ namespace CRM.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit(Taska taska)
         {
             if (ModelState.IsValid)
@@ -216,6 +236,7 @@ namespace CRM.Controllers
         }
 
         // GET: Taskas/Delete/5
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -231,6 +252,7 @@ namespace CRM.Controllers
         }
 
         // POST: Taskas/Delete/5
+        [Authorize(Roles = "admin, manager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(Guid id)

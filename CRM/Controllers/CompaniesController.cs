@@ -18,6 +18,7 @@ namespace CRM.Controllers
 
 
         // GET: Companies
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
             int pageSize = 10;
@@ -28,6 +29,7 @@ namespace CRM.Controllers
         }
 
         // GET: Companies/Details/5
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -43,6 +45,7 @@ namespace CRM.Controllers
         }
 
         // GET: Companies/Create
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             return View();
@@ -53,6 +56,7 @@ namespace CRM.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Create([Bind(Include = "CompanyId,CompanyName,CategoryName")] Company company)
         {
             if (ModelState.IsValid)
@@ -67,6 +71,7 @@ namespace CRM.Controllers
         }
 
         // GET: Companies/Edit/5
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -86,6 +91,7 @@ namespace CRM.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit([Bind(Include = "CompanyId,CompanyName,CategoryName")] Company company)
         {
             if (ModelState.IsValid)
@@ -98,6 +104,7 @@ namespace CRM.Controllers
         }
 
         // GET: Companies/Delete/5
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -113,6 +120,7 @@ namespace CRM.Controllers
         }
 
         // POST: Companies/Delete/5
+        [Authorize(Roles = "admin, manager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(Guid id)

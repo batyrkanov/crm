@@ -16,7 +16,8 @@ namespace CRM.Models
         [Key]
         public Guid StatusId { get; set; }
 
-        [StringLength(250)]
+        
+        [StringLength(250, ErrorMessage = "Длина строки не должна превышать 250 символов")]
         public string StatusName { get; set; }
 
         public virtual ICollection<Taska> Tasks { get; set; }

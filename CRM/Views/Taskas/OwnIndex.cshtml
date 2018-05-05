@@ -20,7 +20,8 @@
                 {
                 <div class="row">
                     <div class="col-md-11 search-div" style="margin-bottom: 2%;">
-                        <input type="text" id="searching" name="searching" class="form-control search" placeholder="Введите наименование компании" />
+                        <input type="text" id="searching" name="searching" class="form-control search" placeholder="Введите наименование компании"
+                               style="border: 1px solid; border-color: #eb5e28;" />
                     </div>
                     <div class="col-md-1 search-div">
                         <button type="submit" class="btn btn-default default-btn">
@@ -36,7 +37,7 @@
 
                         @Html.DropDownList("SelectedCategory",
     new SelectList(ViewBag.UniqCategoriesList, "Value", "Text", "ViewBag.SelectedCategory"),
-    "Все", new { onchange = "form.submit();", @class = "form-control" })
+    "Все", new { onchange = "form.submit();", @class = "form-control", @style = "border: 1px solid; border-color: #eb5e28;" })
 
                 </div>
                 <div class="col-md-6">
@@ -44,19 +45,22 @@
 
                         @Html.DropDownList("SelectedStatus",
     new SelectList(ViewBag.UniqStatusesList, "Value", "Text", "ViewBag.SelectedStatus"),
-    "Все", new { onchange = "form.submit();", @class = "form-control" })
+    "Все", new { onchange = "form.submit();", @class = "form-control", @style = "border: 1px solid; border-color: #eb5e28;" })
 
                 </div>
             </div>
                 }
             <div class="content table-responsive table-full-width" id="accordion">
-                <table class="table table-striped">
+                <table class="table table-responsive table-striped">
                     <tr>
                         <th>
                             Наименование задачи
                         </th>
                         <th>
                             Компания
+                        </th>
+                        <th>
+                            Имя маркетолога (телефон)
                         </th>
                         <th>
                             Категория
@@ -70,10 +74,9 @@
                         <th>
                             Статус
                         </th>
-                        <th>
-                            Описание
+                        <th style="text-align: center; width: 21%;">
+                            Действия
                         </th>
-                        <th></th>
                     </tr>
                     @if (Model.Count() == 0)
         {
@@ -95,6 +98,9 @@ foreach (var item in Model)
                     @Html.DisplayFor(modelItem => item.CompanyName)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.MarketerName) (@Html.DisplayFor(modelItem => item.MarketerPhone))
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.CategoryName)
                 </td>
                 <td>
@@ -104,15 +110,14 @@ foreach (var item in Model)
                     @Html.DisplayFor(modelItem => item.ManagerName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TaskStatus)
+                    @Html.DisplayFor(modelItem => item.StatusName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.ActionLink("Редактировать", "Edit", new { id = item.TaskId }) |
-                    @Html.ActionLink("Подробно", "Details", new { id = item.TaskId }) |
-                    @Html.ActionLink("Удалить", "Delete", new { id = item.TaskId })
+                <td style="text-align: center;">
+                    <div class="btn-group">
+                        <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit","Taskas", new {id = item.TaskId})"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i></a>
+                        <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details","Taskas", new {id = item.TaskId})"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i></a>
+                        <a class="btn btn-danger" name="deleteButton" id="deleteButton" href="@Url.Action("Delete","Taskas", new {id = item.TaskId})"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i></a>
+                    </div>
                 </td>
             </tr>
 }

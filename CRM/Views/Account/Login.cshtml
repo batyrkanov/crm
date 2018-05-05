@@ -70,13 +70,13 @@
             </h1>
             <!--  H1 can have 2 designs: "logo" and "logo cursive"           -->
 
-            <div class="content" style="margin-top: 20%;">
+            <div class="content">
                 <div class="row">
                     <section id="loginForm">
                         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                          {
                         @Html.AntiForgeryToken()
-                        <h4 style="color: white;">Используйте локальную учетную запись для входа</h4>
+                        <h4 style="color: white; text-align: center;">Используйте локальную учетную запись для входа</h4>
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
