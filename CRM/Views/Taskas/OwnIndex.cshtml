@@ -2,10 +2,10 @@
 @using PagedList.Mvc
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "OwnIndex";
-                Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "OwnIndex";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div class="container-fluid">
@@ -18,7 +18,6 @@
                 </div>
                 @using (Html.BeginForm("OwnIndex", "Taskas", FormMethod.Get))
                 {
-                <div class="row">
                     <div class="col-md-11 search-div" style="margin-bottom: 2%;">
                         <input type="text" id="searching" name="searching" class="form-control search" placeholder="Введите наименование компании"
                                style="border: 1px solid; border-color: #eb5e28;" />
@@ -29,109 +28,106 @@
                             Поиск
                         </button>
                     </div>
-                </div>
-                 <!-- Filter  -->
-            <div class="row">
-                <div class="col-md-6">
-                    <label class="control-label" for="category-select-list">Выберите категорию (опционально)</label>
+                    <!-- Filter  -->
+                    <div class="col-md-6">
+                        <label class="control-label" for="category-select-list">Выберите категорию (опционально)</label>
 
                         @Html.DropDownList("SelectedCategory",
-    new SelectList(ViewBag.UniqCategoriesList, "Value", "Text", "ViewBag.SelectedCategory"),
-    "Все", new { onchange = "form.submit();", @class = "form-control", @style = "border: 1px solid; border-color: #eb5e28;" })
+                   new SelectList(ViewBag.UniqCategoriesList, "Value", "Text", "ViewBag.SelectedCategory"),
+                   "Все", new { onchange = "form.submit();", @class = "form-control", @style = "border: 1px solid; border-color: #eb5e28;" })
 
-                </div>
-                <div class="col-md-6">
-                    <label class="control-label" for="status-select-list">Выберите статус (опционально)</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label" for="status-select-list">Выберите статус (опционально)</label>
 
                         @Html.DropDownList("SelectedStatus",
-    new SelectList(ViewBag.UniqStatusesList, "Value", "Text", "ViewBag.SelectedStatus"),
-    "Все", new { onchange = "form.submit();", @class = "form-control", @style = "border: 1px solid; border-color: #eb5e28;" })
+                   new SelectList(ViewBag.UniqStatusesList, "Value", "Text", "ViewBag.SelectedStatus"),
+                   "Все", new { onchange = "form.submit();", @class = "form-control", @style = "border: 1px solid; border-color: #eb5e28;" })
 
-                </div>
-            </div>
-                }
-            <div class="content table-responsive table-full-width" id="accordion">
-                <table class="table table-responsive table-striped">
-                    <tr>
-                        <th>
-                            Наименование задачи
-                        </th>
-                        <th>
-                            Компания
-                        </th>
-                        <th>
-                            Имя маркетолога (телефон)
-                        </th>
-                        <th>
-                            Категория
-                        </th>
-                        <th>
-                            Дата
-                        </th>
-                        <th>
-                            Менеджер
-                        </th>
-                        <th>
-                            Статус
-                        </th>
-                        <th style="text-align: center; width: 21%;">
-                            Действия
-                        </th>
-                    </tr>
-                    @if (Model.Count() == 0)
-        {
-            <tr>
-                <td colspan="4">
-                    Ничего не найдено
-                </td>
-            </tr>
-}
-else
-{
-foreach (var item in Model)
-{
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TaskName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MarketerName) (@Html.DisplayFor(modelItem => item.MarketerPhone))
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TaskDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ManagerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StatusName)
-                </td>
-                <td style="text-align: center;">
-                    <div class="btn-group">
-                        <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit","Taskas", new {id = item.TaskId})"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i></a>
-                        <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details","Taskas", new {id = item.TaskId})"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i></a>
-                        <a class="btn btn-danger" name="deleteButton" id="deleteButton" href="@Url.Action("Delete","Taskas", new {id = item.TaskId})"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i></a>
                     </div>
-                </td>
-            </tr>
-}
-}
+                }
+                <div class="content table-responsive table-full-width" id="accordion">
+                    <table class="table table-responsive table-striped">
+                        <tr>
+                            <th>
+                                Наименование задачи
+                            </th>
+                            <th>
+                                Компания
+                            </th>
+                            <th>
+                                Имя маркетолога (телефон)
+                            </th>
+                            <th>
+                                Категория
+                            </th>
+                            <th>
+                                Дата
+                            </th>
+                            <th>
+                                Менеджер
+                            </th>
+                            <th>
+                                Статус
+                            </th>
+                            <th style="text-align: center; width: 21%;">
+                                Действия
+                            </th>
+                        </tr>
+                        @if (Model.Count() == 0)
+                        {
+                            <tr>
+                                <td colspan="4">
+                                    Ничего не найдено
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TaskName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CompanyName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MarketerName) (@Html.DisplayFor(modelItem => item.MarketerPhone))
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CategoryName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TaskDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ManagerName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StatusName)
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <div class="btn-group">
+                                            <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit","Taskas", new {id = item.TaskId})"><i class="fa fa-pencil-alt" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i></a>
+                                            <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details","Taskas", new {id = item.TaskId})"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i></a>
+                                            <a class="btn btn-danger" name="deleteButton" id="deleteButton" href="@Url.Action("Delete","Taskas", new {id = item.TaskId})"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
 
-                </table>
-                <div id="result"> </div>
+                    </table>
+                    <div id="result"> </div>
 
-                <div id="paginationToDelete">
-                    @Html.PagedListPager(Model, page => Url.Action("AjaxPositionList", new { page }),
+                    <div id="paginationToDelete">
+                        @Html.PagedListPager(Model, page => Url.Action("AjaxPositionList", new { page }),
 PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "result", OnSuccess = "removeListAndPagination()" }))
-                    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+                        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>

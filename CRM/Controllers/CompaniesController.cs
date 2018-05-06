@@ -52,12 +52,10 @@ namespace CRM.Controllers
         }
 
         // POST: Companies/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "admin, manager")]
-        public async Task<ActionResult> Create([Bind(Include = "CompanyId,CompanyName,CategoryName")] Company company)
+        public async Task<ActionResult> Create([Bind(Include = "CompanyId,CompanyName")] Company company)
         {
             if (ModelState.IsValid)
             {
@@ -87,12 +85,10 @@ namespace CRM.Controllers
         }
 
         // POST: Companies/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "admin, manager")]
-        public async Task<ActionResult> Edit([Bind(Include = "CompanyId,CompanyName,CategoryName")] Company company)
+        public async Task<ActionResult> Edit([Bind(Include = "CompanyId,CompanyName")] Company company)
         {
             if (ModelState.IsValid)
             {
@@ -138,40 +134,6 @@ namespace CRM.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private void Sync()
-        {
-            foreach (var item in db.Tasks)
-            {
-                foreach (var item2 in db.Companies)
-                {
-                    if (item.CompanyName != item2.CompanyName)
-                    {
-                        item2.CompanyId = Guid.NewGuid();
-                        item2.CompanyName = item.CompanyName;
-                    }
-                }
-            }
-        }
-
-        public PartialViewResult AddCompanyPartialView()
-        {
-            return PartialView("AddCompanyPartialView", new Company());
-        }
-
-        [HttpPost]
-        public JsonResult AddUserInfo(Company model)
-        {
-            bool isSuccess = true;
-            if (ModelState.IsValid)
-            {
-                model.CompanyId = Guid.NewGuid();
-                db.Companies.Add(model);
-                db.SaveChangesAsync();
-                RedirectToAction("Create", "Taskas");
-            }
-            return Json(isSuccess);
         }
     }
 }
