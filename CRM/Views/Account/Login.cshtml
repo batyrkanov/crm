@@ -82,7 +82,7 @@
                         <div class="form-group">
                             @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 control-label", @style = "color: white;" })
                             <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Введите логин", @required = "required" })
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Введите логин", @required = "required", @pattern = "[^'\x22<>/]+", @title = "Ввод некоторых символов запрещён" })
                                 @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                             </div>
                         </div>
