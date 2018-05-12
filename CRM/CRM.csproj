@@ -202,6 +202,9 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TaskasController.cs" />
     <Compile Include="Controllers\TaskStatusController.cs" />
+    <Compile Include="Defence\ProtectSqlInjectionAndXssAttack.cs" />
+    <Compile Include="Defence\SecurityHeader.cs" />
+    <Compile Include="Defence\Xss.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -244,6 +247,10 @@
     <Compile Include="Migrations\201805051229040_Required.cs" />
     <Compile Include="Migrations\201805051229040_Required.Designer.cs">
       <DependentUpon>201805051229040_Required.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805111432162_CompanyIndex.cs" />
+    <Compile Include="Migrations\201805111432162_CompanyIndex.Designer.cs">
+      <DependentUpon>201805111432162_CompanyIndex.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -628,6 +635,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805051229040_Required.resx">
       <DependentUpon>201805051229040_Required.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805111432162_CompanyIndex.resx">
+      <DependentUpon>201805111432162_CompanyIndex.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

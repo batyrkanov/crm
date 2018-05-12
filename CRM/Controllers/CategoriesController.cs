@@ -9,13 +9,13 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using CRM.Models;
+using CRM.Defence;
 
 namespace CRM.Controllers
 {
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: Categories
         [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
@@ -56,16 +56,35 @@ namespace CRM.Controllers
         [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Create([Bind(Include = "CategoryId,CategoryName")] Category category)
         {
-            if (ModelState.IsValid)
+            try
             {
-                category.CategoryId = Guid.NewGuid();
-                db.Categories.Add(category);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    category.CategoryId = Guid.NewGuid();
+                    db.Categories.Add(category);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                return View(category);
             }
-
-            return View(category);
+            catch (Exception ex)
+            {
+                var sqlException = ex.InnerException as System.Data.SqlClient.SqlException;
+                // 2601 - ошибка ограничения уникальности
+                // 2627 - ошибка дублирования уникального поля
+                if (sqlException.Number == 2601 || sqlException.Number == 2627)
+                {
+                    ViewBag.Message = "Такая запись уже существует!";
+                    return View(category);
+                }
+                else
+                {
+                    return View(category);
+                }
+            }
         }
+    
+    
 
         // GET: Categories/Edit/5
         [Authorize(Roles = "admin, manager")]
@@ -89,13 +108,32 @@ namespace CRM.Controllers
         [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit([Bind(Include = "CategoryId,CategoryName")] Category category)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(category).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(category).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                return View(category);
             }
-            return View(category);
+
+            catch (Exception ex)
+            {
+                var sqlException = ex.InnerException as System.Data.SqlClient.SqlException;
+                // 2601 - ошибка ограничения уникальности
+                // 2627 - ошибка дублирования уникального поля
+                if (sqlException.Number == 2601 || sqlException.Number == 2627)
+                {
+                    ViewBag.Message = "Такая запись уже существует!";
+                    return View(category);
+                }
+                else
+                {
+                    return View(category);
+                }
+            }
         }
 
         // GET: Categories/Delete/5

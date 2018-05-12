@@ -93,6 +93,11 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Редактировать", "Edit", new { id = Model.TaskId }) |
+     @* проверяем, вьюбаг, если он true или admin, то показываем Редактировать
+        если нет, то только Назад*@
+    @if (Model.ManagerName.ToString() == ViewBag.User || User.IsInRole("admin"))
+    {
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.TaskId })
+    }
     @Html.ActionLink("Назад", "Index")
 </p>

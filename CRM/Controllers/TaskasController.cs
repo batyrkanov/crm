@@ -8,30 +8,36 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CRM.Models;
+using CRM.Defence;
 using PagedList;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 
 namespace CRM.Controllers
 {
+    [ProtectSqlIAndXssAttack]
     public class TaskasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        // метод для отдельной пагинации задач принимающая номер страницы page
         [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxPositionList(int? page)
         {
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
+            int pageSize = 10; // размер страницы (сколько записей отображать)
+            int pageNumber = (page ?? 1); //номер страницы
             return PartialView(db.Tasks.OrderByDescending(x => x.TaskDate).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Taskas
+        // просмотр всех задач
         [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page, string searching, string SelectedCategory, string SelectedStatus, string SelectedUser)
         {
-            int pageSize = 10;
-            int pageNumber = (page ?? 1);
+            
+            int pageSize = 10;// размер страницы (сколько записей отображать)
+            int pageNumber = (page ?? 1); //номер страницы
+            
             // возвращаем список задач, сортируем по дате
             IPagedList<Taska> taskas = db.Tasks.Where(x => x.CompanyName.Contains(searching) || searching == null).OrderByDescending(x => x.TaskDate).ToPagedList(pageNumber, pageSize);
 
@@ -84,6 +90,18 @@ namespace CRM.Controllers
             ViewBag.SelectedStatus = SelectedStatus;
             #endregion
 
+            // собираем список менеджеров
+            string[] managers = db.Tasks.Select(x => x.ManagerName).ToArray();
+            foreach(var manager in managers)
+            {
+                // проверяем содержится ли в именах менеджеров логин нынешнего пользователя или админа
+                // если да, то передаем во вьюшку true
+                if (manager.Contains(User.Identity.Name))
+                {
+                    ViewBag.User = manager;
+                }
+            }
+                
             return View(taskas);
         }
 
@@ -93,6 +111,7 @@ namespace CRM.Controllers
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
+            
             IPagedList<Taska> taskas = db.Tasks.Where(x => x.ManagerName.Contains(User.Identity.Name) && (x.CompanyName.Contains(searching) || searching == null)).OrderByDescending(x => x.TaskDate).ToPagedList(pageNumber, pageSize);
 
             #region фильтрация данных
@@ -147,6 +166,12 @@ namespace CRM.Controllers
             {
                 return HttpNotFound();
             }
+            // собираем список менеджеров
+            // проверяем содержится ли в именах менеджеров логин нынешнего пользователя или админа
+            // если да, то передаем во вьюшку true
+            if (taska.ManagerName.Contains(User.Identity.Name))
+                ViewBag.User = taska.ManagerName;
+            
             return View(taska);
         }
 
@@ -179,7 +204,7 @@ namespace CRM.Controllers
 
             List<Models.TaskStatus> statuses = db.TaskStatuses.ToList();
             ViewBag.StatusesList = new SelectList(statuses, "StatusName", "StatusName");
-
+            
             if (ModelState.IsValid)
             {
                 var currentUser = db.Users.Find(User.Identity.GetUserId());
@@ -190,7 +215,6 @@ namespace CRM.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
             return View(taska);
         }
 

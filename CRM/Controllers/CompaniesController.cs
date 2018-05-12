@@ -12,6 +12,7 @@ using CRM.Models;
 
 namespace CRM.Controllers
 {
+    
     public class CompaniesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -57,15 +58,33 @@ namespace CRM.Controllers
         [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Create([Bind(Include = "CompanyId,CompanyName")] Company company)
         {
-            if (ModelState.IsValid)
+            try
             {
-                company.CompanyId = Guid.NewGuid();
-                db.Companies.Add(company);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    company.CompanyId = Guid.NewGuid();
+                    db.Companies.Add(company);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                return View(company);
+            }
+            catch (Exception ex)
+            {
+                var sqlException = ex.InnerException as System.Data.SqlClient.SqlException;
+                // 2601 - ошибка ограничения уникальности
+                // 2627 - ошибка дублирования уникального поля
+                if (sqlException.Number == 2601 || sqlException.Number == 2627)
+                {
+                    ViewBag.Message = "Такая запись уже существует!";
+                    return View(company);
+                }
+                else
+                {
+                    return View(company);
+                }
             }
 
-            return View(company);
         }
 
         // GET: Companies/Edit/5
@@ -90,13 +109,32 @@ namespace CRM.Controllers
         [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit([Bind(Include = "CompanyId,CompanyName")] Company company)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(company).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(company).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                return View(company);
+
             }
-            return View(company);
+            catch (Exception ex)
+            {
+                var sqlException = ex.InnerException as System.Data.SqlClient.SqlException;
+                // 2601 - ошибка ограничения уникальности
+                // 2627 - ошибка дублирования уникального поля
+                if (sqlException.Number == 2601 || sqlException.Number == 2627)
+                {
+                    ViewBag.Message = "Такая запись уже существует!";
+                    return View(company);
+                }
+                else
+                {
+                    return View(company);
+                }
+            }
         }
 
         // GET: Companies/Delete/5

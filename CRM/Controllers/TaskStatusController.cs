@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CRM.Models;
+using CRM.Defence;
 using PagedList;
 
 namespace CRM.Controllers
@@ -15,7 +16,6 @@ namespace CRM.Controllers
     public class TaskStatusController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: TaskStatus
         [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
@@ -56,15 +56,34 @@ namespace CRM.Controllers
         [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Create([Bind(Include = "StatusId,StatusName")] Models.TaskStatus taskStatus)
         {
-            if (ModelState.IsValid)
+            try
             {
-                taskStatus.StatusId = Guid.NewGuid();
-                db.TaskStatuses.Add(taskStatus);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    taskStatus.StatusId = Guid.NewGuid();
+                    db.TaskStatuses.Add(taskStatus);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+
+                return View(taskStatus);
+            }
+            catch (Exception ex)
+            {
+                var sqlException = ex.InnerException as System.Data.SqlClient.SqlException;
+                // 2601 - ошибка ограничения уникальности
+                // 2627 - ошибка дублирования уникального поля
+                if (sqlException.Number == 2601 || sqlException.Number == 2627)
+                {
+                    ViewBag.Message = "Такая запись уже существует!";
+                    return View(taskStatus);
+                }
+                else
+                {
+                    return View(taskStatus);
+                }
             }
 
-            return View(taskStatus);
         }
 
         // GET: TaskStatus/Edit/5
@@ -89,13 +108,32 @@ namespace CRM.Controllers
         [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit([Bind(Include = "StatusId,StatusName")] Models.TaskStatus taskStatus)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(taskStatus).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(taskStatus).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                return View(taskStatus);
             }
-            return View(taskStatus);
+            
+            catch (Exception ex)
+            {
+                var sqlException = ex.InnerException as System.Data.SqlClient.SqlException;
+                // 2601 - ошибка ограничения уникальности
+                // 2627 - ошибка дублирования уникального поля
+                if (sqlException.Number == 2601 || sqlException.Number == 2627)
+                {
+                    ViewBag.Message = "Такая запись уже существует!";
+                    return View(taskStatus);
+                }
+                else
+                {
+                    return View(taskStatus);
+                }
+            }
         }
 
         // GET: TaskStatus/Delete/5
