@@ -43,6 +43,9 @@ namespace CRM.Models
         [Required(ErrorMessage = "Заполните это поле")]
         public DateTime? TaskDate { get; set; }
 
+        
+        public DateTime? MeetingDate { get; set; }
+
         [StringLength(250)]
         public string ManagerName { get; set; }
 
