@@ -62,7 +62,10 @@
                                 Категория
                             </th>
                             <th>
-                                Дата
+                                Дата последней встречи
+                            </th>
+                            <th>
+                                Дата предстоящей встречи
                             </th>
                             <th>
                                 Менеджер
@@ -86,36 +89,39 @@
                         {
                             foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TaskName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CompanyName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.MarketerName) (@Html.DisplayFor(modelItem => item.MarketerPhone))
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CategoryName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TaskDate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ManagerName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.StatusName)
-                                    </td>
-                                    <td style="text-align: center;">
-                                        <div class="btn-group">
-                                            <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit","Taskas", new {id = item.TaskId})"><i class="fa fa-pencil-alt" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i></a>
-                                            <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details","Taskas", new {id = item.TaskId})"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i></a>
-                                            <a class="btn btn-danger" name="deleteButton" id="deleteButton" href="@Url.Action("Delete","Taskas", new {id = item.TaskId})"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TaskName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CompanyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MarketerName) (@Html.DisplayFor(modelItem => item.MarketerPhone))
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastMeetingDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TaskDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ManagerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StatusName)
+                                </td>
+                                <td style="text-align: center;">
+                                    <div class="btn-group">
+                                        <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit","Taskas", new {id = item.TaskId})"><i class="fa fa-pencil-alt" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i></a>
+                                        <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details","Taskas", new {id = item.TaskId})"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i></a>
+                                        <a class="btn btn-danger" name="deleteButton" id="deleteButton" href="@Url.Action("Delete","Taskas", new {id = item.TaskId})"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
                             }
                         }
 

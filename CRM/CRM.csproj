@@ -256,6 +256,10 @@
     <Compile Include="Migrations\201805151437035_MeetingDate.Designer.cs">
       <DependentUpon>201805151437035_MeetingDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805151453172_MeetingDate1.cs" />
+    <Compile Include="Migrations\201805151453172_MeetingDate1.Designer.cs">
+      <DependentUpon>201805151453172_MeetingDate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -645,6 +649,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805151437035_MeetingDate.resx">
       <DependentUpon>201805151437035_MeetingDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805151453172_MeetingDate1.resx">
+      <DependentUpon>201805151453172_MeetingDate1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

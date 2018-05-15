@@ -69,20 +69,10 @@ namespace CRM.Controllers
                 }
                 return View(company);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                var sqlException = ex.InnerException as System.Data.SqlClient.SqlException;
-                // 2601 - ошибка ограничения уникальности
-                // 2627 - ошибка дублирования уникального поля
-                if (sqlException.Number == 2601 || sqlException.Number == 2627)
-                {
-                    ViewBag.Message = "Такая запись уже существует!";
-                    return View(company);
-                }
-                else
-                {
-                    return View(company);
-                }
+                ViewBag.Message = "Такая запись уже существует!";
+                return View(company);
             }
 
         }
@@ -120,20 +110,10 @@ namespace CRM.Controllers
                 return View(company);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                var sqlException = ex.InnerException as System.Data.SqlClient.SqlException;
-                // 2601 - ошибка ограничения уникальности
-                // 2627 - ошибка дублирования уникального поля
-                if (sqlException.Number == 2601 || sqlException.Number == 2627)
-                {
-                    ViewBag.Message = "Такая запись уже существует!";
-                    return View(company);
-                }
-                else
-                {
-                    return View(company);
-                }
+                ViewBag.Message = "Такая запись уже существует!";
+                return View(company);
             }
         }
 

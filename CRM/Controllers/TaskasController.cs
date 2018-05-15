@@ -196,6 +196,7 @@ namespace CRM.Controllers
         [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Create(Taska taska)
         {
+            var DateTimeNow = DateTime.Now;
             List<Category> category = db.Categories.ToList();
             ViewBag.CategoriesList = new SelectList(category, "CategoryName", "CategoryName");
 
@@ -204,7 +205,19 @@ namespace CRM.Controllers
 
             List<Models.TaskStatus> statuses = db.TaskStatuses.ToList();
             ViewBag.StatusesList = new SelectList(statuses, "StatusName", "StatusName");
-            
+
+            if(taska.LastMeetingDate > DateTimeNow)
+            {
+                ViewBag.LastDateError = "Дата последней встречи не может превышать нынешнюю дату";
+                return View(taska);
+            }
+
+            if (taska.TaskDate < DateTimeNow)
+            {
+                ViewBag.DateError = "Дата намеченной встречи не может быть меньше нынешней даты";
+                return View(taska);
+            }
+
             if (ModelState.IsValid)
             {
                 var currentUser = db.Users.Find(User.Identity.GetUserId());
@@ -243,6 +256,28 @@ namespace CRM.Controllers
         [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit(Taska taska)
         {
+            var DateTimeNow = DateTime.Now;
+
+            List<Category> category = db.Categories.ToList();
+            ViewBag.CategoriesList = new SelectList(category, "CategoryName", "CategoryName");
+
+            List<Company> companies = db.Companies.ToList();
+            ViewBag.CompaniesList = new SelectList(companies, "CompanyName", "CompanyName");
+
+            List<Models.TaskStatus> statuses = db.TaskStatuses.ToList();
+            ViewBag.StatusesList = new SelectList(statuses, "StatusName", "StatusName");
+
+            if (taska.LastMeetingDate > DateTimeNow)
+            {
+                ViewBag.LastDateError = "Дата последней встречи не может превышать нынешнюю дату";
+                return View(taska);
+            }
+
+            if (taska.TaskDate < DateTimeNow)
+            {
+                ViewBag.DateError = "Дата намеченной встречи не может быть меньше нынешней даты";
+                return View(taska);
+            }
             if (ModelState.IsValid)
             {
                 var currentUser = db.Users.Find(User.Identity.GetUserId());
