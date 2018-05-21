@@ -9,22 +9,22 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using CRM.Models;
-using CRM.Defence;
 
 namespace CRM.Controllers
 {
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        
         // GET: Categories
         [Authorize(Roles = "admin, manager")]
-        public ActionResult Index(int? page)
+        public ViewResult Index(int? page)
         {
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             // возвращаем список категорий, сортируем по наименованию
             IPagedList<Category> category = db.Categories.OrderByDescending(x => x.CategoryName).ToPagedList(pageNumber, pageSize);
-            return View(category);
+            return View(db.Categories.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Categories/Details/5

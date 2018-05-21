@@ -15,7 +15,6 @@ using Microsoft.AspNet.Identity;
 
 namespace CRM.Controllers
 {
-    [ProtectSqlIAndXssAttack]
     public class TaskasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

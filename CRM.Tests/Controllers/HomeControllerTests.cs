@@ -7,16 +7,21 @@ namespace CRM.Tests.Controllers
     [TestClass]
     public class HomeControllerTests
     {
-        [TestMethod]
-        public void Index()
+        private HomeController controller;
+        private ViewResult result;
+        
+        [TestInitialize]
+        public void SetupContext()
         {
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
-
-            // Assert
+            controller = new HomeController();
+            result = controller.Index() as ViewResult;
+        }
+        [TestMethod]
+        public void IndexViewResultNotNull()
+        {
             Assert.IsNotNull(result);
         }
+
+
     }
 }
