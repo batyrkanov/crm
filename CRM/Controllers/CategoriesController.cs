@@ -1,20 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using CRM.Models;
+using CRM.Data;
+using CRM.Models.Interfaces;
 
 namespace CRM.Controllers
 {
     public class CategoriesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        IUnitOfWork unitOfWork;
+
+        public CategoriesController()
+        {
+            this.unitOfWork = new UnitOfWork();
+        }
+        public CategoriesController(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
+
+        public CategoriesController(UnitOfWork unit) => unitOfWork = unit;
         
         // GET: Categories
         [Authorize(Roles = "admin, manager")]
@@ -23,8 +32,8 @@ namespace CRM.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             // возвращаем список категорий, сортируем по наименованию
-            IPagedList<Category> category = db.Categories.OrderByDescending(x => x.CategoryName).ToPagedList(pageNumber, pageSize);
-            return View(db.Categories.ToPagedList(pageNumber, pageSize));
+            IPagedList<Category> category = unitOfWork.Categories.GetAll().ToPagedList(pageNumber, pageSize);
+            return View(category);
         }
 
         // GET: Categories/Details/5
@@ -35,7 +44,7 @@ namespace CRM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = await db.Categories.FindAsync(id);
+            Category category = unitOfWork.Categories.GetById(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -61,8 +70,8 @@ namespace CRM.Controllers
                 if (ModelState.IsValid)
                 {
                     category.CategoryId = Guid.NewGuid();
-                    db.Categories.Add(category);
-                    await db.SaveChangesAsync();
+                    unitOfWork.Categories.Create(category);
+                    unitOfWork.Save();
                     return RedirectToAction("Index");
                 }
                 return View(category);
@@ -84,7 +93,7 @@ namespace CRM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = await db.Categories.FindAsync(id);
+            Category category = unitOfWork.Categories.GetById(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -102,8 +111,8 @@ namespace CRM.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(category).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
+                    unitOfWork.Categories.Update(category);
+                    unitOfWork.Save();
                     return RedirectToAction("Index");
                 }
                 return View(category);
@@ -124,7 +133,7 @@ namespace CRM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = await db.Categories.FindAsync(id);
+            Category category = unitOfWork.Categories.GetById(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -138,9 +147,9 @@ namespace CRM.Controllers
         [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
-            Category category = await db.Categories.FindAsync(id);
-            db.Categories.Remove(category);
-            await db.SaveChangesAsync();
+            
+            unitOfWork.Categories.Delete(id);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -148,7 +157,7 @@ namespace CRM.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

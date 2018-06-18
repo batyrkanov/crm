@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CRM.Models;
-using CRM.Defence;
 using PagedList;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
